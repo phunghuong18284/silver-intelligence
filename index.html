@@ -698,7 +698,7 @@ input:checked~.tthumb{transform:translateX(18px)}
   </div>
 
   <!-- ══ ROW 3: AI Report + News + Portfolio ══ -->
-  <div class="grid-3 mb-16" style="gap:12px">
+  <div class="grid-2 mb-16" style="gap:12px">
 
     <!-- AI Report -->
     <div style="grid-column:span 1">
@@ -769,7 +769,9 @@ input:checked~.tthumb{transform:translateX(18px)}
         </div>
         <button class="btn btn-ghost" onclick="runNews()" style="margin-top:10px;font-size:11px">🔄 Tải tin mới nhất</button>
       </div>
-    </div>  
+    </div>
+
+  </div>
 
   <!-- ══ ROW 4: History ══ -->
   <div class="sec-header mb-12">
@@ -847,17 +849,7 @@ function applyPrices(p) {
   setEl('m-sjc',  p.xau_vnd?.value ? p.xau_vnd.value.toFixed(1) : null);
   if (p.usdvnd?.value) setEl('m-vnd', p.usdvnd.value.toLocaleString('vi-VN'));
 
-  // Portfolio inputs — cập nhật giá tự động
-  const xagInput = document.getElementById('p-xag');
-  if (xagInput && p.xag?.value) {
-    xagInput.value = p.xag.value.toFixed(2);
-    calcPort();
-  }
-  const rateInput = document.getElementById('p-rate');
-  if (rateInput && p.usdvnd?.value) {
-    rateInput.value = p.usdvnd.value;
-    calcPort();
-  }
+  // Portfolio removed
 
   // GSR signal bar
   if (p.gsr?.value) {
