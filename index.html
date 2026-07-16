@@ -3,872 +3,1207 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Silver Intelligence — Báo cáo hàng ngày</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<title>Panorama — Vàng & Bạc Toàn Cảnh</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
-:root {
-  --bg: #0A0B0D;
-  --surface: #111318;
-  --surface2: #181C22;
-  --border: rgba(255,255,255,0.06);
-  --border2: rgba(255,255,255,0.12);
-  --text: #E8E6E0;
-  --muted: #6B7280;
-  --faint: #374151;
-  --silver: #C0C8D6;
-  --silver2: #8899AA;
-  --gold: #C9A84C;
-  --gold2: #8A6B28;
-  --green: #22C55E;
-  --red: #EF4444;
-  --amber: #F59E0B;
-  --blue: #60A5FA;
-  --accent: #C0C8D6;
+/* ─────────────────────────────────────────────
+   DESIGN TOKENS
+───────────────────────────────────────────── */
+:root{
+  --bg:#080A0C;
+  --surface:#0D1117;
+  --surface2:#111820;
+  --surface3:#172030;
+  --border:rgba(255,255,255,0.06);
+  --border2:rgba(255,255,255,0.11);
+  --text:#E2E8F0;
+  --muted:#64748B;
+  --faint:#1E293B;
+  --gold:#D4A843;
+  --gold2:#F0C060;
+  --gold-dim:#7A5C1A;
+  --silver:#A8B8CC;
+  --silver2:#C8D8EE;
+  --silver-dim:#3A4A5A;
+  --green:#22C55E;
+  --green-bg:rgba(34,197,94,0.08);
+  --green-border:rgba(34,197,94,0.2);
+  --red:#EF4444;
+  --red-bg:rgba(239,68,68,0.08);
+  --red-border:rgba(239,68,68,0.2);
+  --amber:#F59E0B;
+  --amber-bg:rgba(245,158,11,0.08);
+  --amber-border:rgba(245,158,11,0.2);
+  --blue:#60A5FA;
+  --blue-bg:rgba(96,165,250,0.08);
+  --blue-border:rgba(96,165,250,0.2);
+  --r:8px;
+  --r2:12px;
 }
-* { box-sizing: border-box; margin: 0; padding: 0; }
-body {
-  background: var(--bg);
-  color: var(--text);
-  font-family: 'DM Sans', sans-serif;
-  font-size: 14px;
-  line-height: 1.6;
-  min-height: 100vh;
-}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:'Space Grotesk',sans-serif;font-size:14px;line-height:1.5;min-height:100vh}
 
-/* ── Header ── */
-.header {
-  border-bottom: 1px solid var(--border);
-  padding: 20px 32px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: var(--surface);
-  position: sticky;
-  top: 0;
-  z-index: 100;
-}
-.logo {
-  display: flex;
-  align-items: baseline;
-  gap: 10px;
-}
-.logo-mark {
-  font-family: 'Syne', sans-serif;
-  font-weight: 800;
-  font-size: 20px;
-  color: var(--silver);
-  letter-spacing: -0.5px;
-}
-.logo-sub { font-size: 11px; color: var(--muted); font-family: 'DM Mono', monospace; letter-spacing: 0.08em; }
-.header-right { display: flex; align-items: center; gap: 12px; }
-.clock {
-  font-family: 'DM Mono', monospace;
-  font-size: 12px;
-  color: var(--silver2);
-  background: var(--surface2);
-  padding: 5px 12px;
-  border-radius: 6px;
-  border: 1px solid var(--border);
-}
-.status-dot {
-  width: 8px; height: 8px;
-  border-radius: 50%;
-  background: var(--green);
-  box-shadow: 0 0 8px rgba(34,197,94,0.6);
-  animation: pulse 2s infinite;
-}
-@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+/* ─── Scrollbar ─── */
+::-webkit-scrollbar{width:4px;height:4px}
+::-webkit-scrollbar-track{background:var(--surface)}
+::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px}
 
-/* ── Main ── */
-.main { padding: 24px 32px; max-width: 1280px; margin: 0 auto; }
+/* ─── Header ─── */
+.header{
+  position:sticky;top:0;z-index:100;
+  background:rgba(8,10,12,0.95);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--border);
+  padding:0 24px;
+  height:52px;
+  display:flex;align-items:center;justify-content:space-between;gap:16px;
+}
+.logo{display:flex;align-items:center;gap:10px;flex-shrink:0}
+.logo-icon{
+  width:32px;height:32px;border-radius:8px;
+  background:linear-gradient(135deg,var(--gold-dim),var(--gold));
+  display:flex;align-items:center;justify-content:center;
+  font-size:14px;font-weight:700;color:#080A0C;
+  font-family:'Space Mono',monospace;
+}
+.logo-text{font-family:'Space Mono',monospace;font-size:13px;font-weight:700;color:var(--text);letter-spacing:0.05em}
+.logo-sub{font-size:10px;color:var(--muted);letter-spacing:0.1em;text-transform:uppercase;margin-top:1px}
 
-/* ── Price Ticker ── */
-.ticker-row {
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  gap: 8px;
-  margin-bottom: 20px;
-}
-.ticker-card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 12px 14px;
-  transition: border-color 0.2s;
-}
-.ticker-card:hover { border-color: var(--border2); }
-.tc-label { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 5px; }
-.tc-val { font-family: 'Syne', sans-serif; font-size: 20px; font-weight: 700; }
-.tc-change { font-size: 11px; font-family: 'DM Mono', monospace; margin-top: 3px; }
-.up { color: var(--green); }
-.dn { color: var(--red); }
-.neu { color: var(--muted); }
+.header-ticker{display:flex;gap:16px;flex:1;justify-content:center;overflow:hidden}
+.htick{display:flex;align-items:baseline;gap:5px;flex-shrink:0}
+.htick-name{font-family:'Space Mono',monospace;font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em}
+.htick-val{font-family:'Space Mono',monospace;font-size:13px;font-weight:700}
+.htick-ch{font-family:'Space Mono',monospace;font-size:10px}
 
-/* ── Alert Banner ── */
-.alert-banner {
-  background: rgba(239,68,68,0.08);
-  border: 1px solid rgba(239,68,68,0.25);
-  border-left: 3px solid var(--red);
-  border-radius: 8px;
-  padding: 12px 16px;
-  margin-bottom: 20px;
-  display: flex;
-  gap: 12px;
-  align-items: flex-start;
-  font-size: 13px;
-  color: #FCA5A5;
-  line-height: 1.6;
-}
-.alert-banner b { color: #FEE2E2; }
+.header-right{display:flex;align-items:center;gap:10px;flex-shrink:0}
+.clock{font-family:'Space Mono',monospace;font-size:11px;color:var(--silver);background:var(--surface2);padding:4px 10px;border-radius:6px;border:1px solid var(--border)}
+.pulse{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 8px rgba(34,197,94,0.6);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.3}}
 
-/* ── Schedule ── */
-.schedule-bar {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 14px 18px;
-  margin-bottom: 20px;
-  display: flex;
-  gap: 24px;
-  align-items: center;
-  flex-wrap: wrap;
-}
-.sched-label { font-size: 11px; color: var(--muted); font-family: 'DM Mono', monospace; text-transform: uppercase; letter-spacing: 0.08em; }
-.sched-times { display: flex; gap: 10px; flex-wrap: wrap; }
-.sched-pill {
-  font-family: 'DM Mono', monospace;
-  font-size: 12px;
-  padding: 4px 12px;
-  border-radius: 20px;
-  cursor: pointer;
-  border: 1px solid;
-  transition: all 0.15s;
-}
-.sched-pill.active { background: var(--silver); color: #0A0B0D; border-color: var(--silver); font-weight: 500; }
-.sched-pill:not(.active) { background: transparent; color: var(--silver2); border-color: var(--border2); }
-.sched-pill:not(.active):hover { border-color: var(--silver2); }
-.auto-toggle { display: flex; align-items: center; gap: 8px; margin-left: auto; }
-.auto-toggle label { font-size: 12px; color: var(--muted); cursor: pointer; }
-.toggle { position: relative; width: 36px; height: 20px; cursor: pointer; }
-.toggle input { opacity: 0; width: 0; height: 0; }
-.toggle-track {
-  position: absolute; top: 0; left: 0; right: 0; bottom: 0;
-  background: var(--faint); border-radius: 10px; transition: 0.2s;
-}
-.toggle input:checked + .toggle-track { background: var(--silver); }
-.toggle-thumb {
-  position: absolute; top: 2px; left: 2px;
-  width: 16px; height: 16px; border-radius: 50%;
-  background: white; transition: 0.2s;
-}
-.toggle input:checked ~ .toggle-thumb { transform: translateX(16px); }
+/* ─── Layout ─── */
+.main{padding:20px 24px;max-width:1440px;margin:0 auto}
 
-/* ── Grid layout ── */
-.grid2 { display: grid; grid-template-columns: 1.3fr 1fr; gap: 16px; margin-bottom: 16px; }
-.grid3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+/* ─── Section Header ─── */
+.sec-header{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.sec-icon{width:28px;height:28px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0}
+.si-gold{background:linear-gradient(135deg,var(--gold-dim),var(--gold-dim));border:1px solid var(--gold-dim)}
+.si-silver{background:var(--silver-dim);border:1px solid var(--silver-dim)}
+.si-blue{background:var(--blue-bg);border:1px solid var(--blue-border)}
+.si-red{background:var(--red-bg);border:1px solid var(--red-border)}
+.si-green{background:var(--green-bg);border:1px solid var(--green-border)}
+.sec-title{font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;color:var(--muted)}
+.sec-badge{font-family:'Space Mono',monospace;font-size:10px;padding:2px 8px;border-radius:4px;margin-left:auto}
 
-/* ── Cards ── */
-.card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 18px;
-  position: relative;
-  overflow: hidden;
-}
-.card-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 14px;
-  padding-bottom: 10px;
-  border-bottom: 1px solid var(--border);
-}
-.card-title {
-  font-family: 'DM Mono', monospace;
-  font-size: 10px;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: var(--muted);
-}
-.card-badge {
-  font-family: 'DM Mono', monospace;
-  font-size: 10px;
-  padding: 2px 8px;
-  border-radius: 4px;
-  background: rgba(192,200,214,0.1);
-  color: var(--silver2);
-  border: 1px solid rgba(192,200,214,0.15);
-}
+/* ─── Card ─── */
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r2);padding:16px;position:relative;overflow:hidden}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.06),transparent)}
 
-/* ── Report output ── */
-.report-output {
-  font-size: 13px;
-  line-height: 1.85;
-  color: #D1D5DB;
-  white-space: pre-wrap;
-  min-height: 120px;
-  font-family: 'DM Sans', sans-serif;
-}
-.report-output.loading {
-  color: var(--muted);
-  font-family: 'DM Mono', monospace;
-  font-size: 12px;
-}
+/* ─── Grid layouts ─── */
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+.grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.grid-6{display:grid;grid-template-columns:repeat(6,1fr);gap:8px}
+.gap-16{gap:16px}
+.mb-16{margin-bottom:16px}
+.mb-12{margin-bottom:12px}
 
-/* ── Signal meters ── */
-.signal-row {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 8px 0;
-  border-bottom: 1px solid var(--border);
-}
-.signal-row:last-child { border-bottom: none; }
-.signal-name { font-size: 12px; color: var(--text); width: 160px; flex-shrink: 0; }
-.signal-track { flex: 1; height: 4px; background: var(--faint); border-radius: 2px; overflow: hidden; }
-.signal-bar { height: 100%; border-radius: 2px; transition: width 0.8s ease; }
-.signal-val { font-family: 'DM Mono', monospace; font-size: 12px; width: 80px; text-align: right; flex-shrink: 0; }
-.signal-arrow { font-size: 11px; width: 20px; flex-shrink: 0; text-align: center; }
+/* ─── Macro KPI Cards ─── */
+.kpi{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:12px 14px;position:relative;overflow:hidden;transition:border-color 0.2s}
+.kpi:hover{border-color:var(--border2)}
+.kpi-label{font-family:'Space Mono',monospace;font-size:9px;text-transform:uppercase;letter-spacing:0.12em;color:var(--muted);margin-bottom:6px}
+.kpi-val{font-family:'Space Mono',monospace;font-size:20px;font-weight:700;line-height:1;margin-bottom:4px}
+.kpi-sub{font-size:10px;color:var(--muted);display:flex;align-items:center;gap:4px}
+.kpi-bar{position:absolute;bottom:0;left:0;right:0;height:2px}
 
-/* ── Inventory visual ── */
-.inv-bar-wrap { margin: 14px 0; }
-.inv-label-row { display: flex; justify-content: space-between; font-family: 'DM Mono', monospace; font-size: 11px; color: var(--muted); margin-bottom: 5px; }
-.inv-track { height: 16px; background: var(--faint); border-radius: 4px; overflow: hidden; position: relative; }
-.inv-fill { height: 100%; border-radius: 4px; display: flex; align-items: center; padding-left: 8px; font-size: 10px; font-family: 'DM Mono', monospace; font-weight: 500; transition: width 1s ease; }
-.inv-registered { background: rgba(239,68,68,0.7); color: #FCA5A5; }
-.inv-eligible { background: rgba(96,165,250,0.4); color: #93C5FD; margin-top: 4px; }
-.coverage-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  background: rgba(239,68,68,0.12);
-  border: 1px solid rgba(239,68,68,0.25);
-  border-radius: 6px;
-  padding: 6px 12px;
-  font-family: 'DM Mono', monospace;
-  font-size: 12px;
-  color: #FCA5A5;
-  margin-top: 10px;
-}
+/* ─── Inventory bars ─── */
+.inv-section{margin-top:12px}
+.inv-item{margin-bottom:10px}
+.inv-meta{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:4px;font-size:11px}
+.inv-name{color:var(--muted);font-family:'Space Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:0.06em}
+.inv-val{font-family:'Space Mono',monospace;font-size:12px;font-weight:600}
+.inv-track{height:6px;background:var(--faint);border-radius:3px;overflow:hidden;position:relative}
+.inv-fill{height:100%;border-radius:3px;transition:width 1.2s cubic-bezier(.4,0,.2,1)}
+.inv-marker{position:absolute;top:-2px;width:2px;height:10px;background:rgba(255,255,255,0.3);border-radius:1px}
 
-/* ── News feed ── */
-.news-item {
-  padding: 10px 0;
-  border-bottom: 1px solid var(--border);
-  font-size: 12px;
-  line-height: 1.6;
-}
-.news-item:last-child { border-bottom: none; }
-.news-source { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--silver2); text-transform: uppercase; letter-spacing: 0.08em; }
-.news-headline { color: var(--text); margin-top: 2px; }
-.news-impact { display: inline-block; font-size: 10px; padding: 1px 6px; border-radius: 3px; margin-top: 4px; font-family: 'DM Mono', monospace; }
-.impact-high { background: rgba(239,68,68,0.15); color: #FCA5A5; border: 1px solid rgba(239,68,68,0.2); }
-.impact-med { background: rgba(245,158,11,0.15); color: #FCD34D; border: 1px solid rgba(245,158,11,0.2); }
-.impact-low { background: rgba(107,114,128,0.2); color: var(--muted); border: 1px solid var(--border2); }
+/* ─── Signal rows ─── */
+.signal{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--border)}
+.signal:last-child{border-bottom:none}
+.sig-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.sig-name{font-size:12px;color:var(--muted);flex:1;min-width:0}
+.sig-track{width:80px;height:4px;background:var(--faint);border-radius:2px;overflow:hidden;flex-shrink:0}
+.sig-fill{height:100%;border-radius:2px;transition:width 1s ease}
+.sig-val{font-family:'Space Mono',monospace;font-size:12px;font-weight:600;width:80px;text-align:right;flex-shrink:0}
+.sig-arrow{font-size:11px;width:18px;text-align:center;flex-shrink:0}
 
-/* ── Run button ── */
-.run-btn {
-  width: 100%;
-  padding: 12px;
-  background: var(--silver);
-  color: #0A0B0D;
-  border: none;
-  border-radius: 8px;
-  font-family: 'Syne', sans-serif;
-  font-weight: 700;
-  font-size: 14px;
-  cursor: pointer;
-  letter-spacing: 0.02em;
-  transition: opacity 0.15s;
-  margin-top: 16px;
-}
-.run-btn:hover { opacity: 0.85; }
-.run-btn:disabled { opacity: 0.4; cursor: not-allowed; }
-.run-btn.secondary {
-  background: transparent;
-  color: var(--silver2);
-  border: 1px solid var(--border2);
-  margin-top: 8px;
-}
+/* ─── GRAM Bar ─── */
+.gram-row{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--border)}
+.gram-row:last-child{border-bottom:none}
+.gram-name{font-size:11px;color:var(--muted);width:200px;flex-shrink:0}
+.gram-track{flex:1;height:8px;background:var(--faint);border-radius:4px;overflow:hidden}
+.gram-fill{height:100%;border-radius:4px;transition:width 1.2s ease}
+.gram-val{font-family:'Space Mono',monospace;font-size:11px;font-weight:700;width:50px;text-align:right;flex-shrink:0}
 
-/* ── History log ── */
-.history-item {
-  padding: 10px 12px;
-  background: var(--surface2);
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  margin-bottom: 8px;
-  font-size: 12px;
-}
-.history-ts { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--muted); margin-bottom: 4px; }
-.history-summary { color: var(--text); line-height: 1.6; }
+/* ─── News feed ─── */
+.news-item{padding:11px 0;border-bottom:1px solid var(--border)}
+.news-item:last-child{border-bottom:none}
+.news-meta{display:flex;align-items:center;gap:8px;margin-bottom:4px}
+.news-source{font-family:'Space Mono',monospace;font-size:9px;text-transform:uppercase;letter-spacing:0.1em;color:var(--muted)}
+.news-time{font-family:'Space Mono',monospace;font-size:9px;color:var(--faint);background:var(--surface2);padding:1px 5px;border-radius:3px}
+.impact-chip{font-size:9px;font-family:'Space Mono',monospace;padding:2px 6px;border-radius:3px;font-weight:700;letter-spacing:0.05em}
+.ic-high{background:var(--red-bg);color:var(--red);border:1px solid var(--red-border)}
+.ic-med{background:var(--amber-bg);color:var(--amber);border:1px solid var(--amber-border)}
+.ic-low{background:var(--faint);color:var(--muted);border:1px solid var(--border)}
+.news-headline{font-size:12px;color:var(--text);line-height:1.55}
+.news-snippet{font-size:11px;color:var(--muted);margin-top:3px;line-height:1.5}
 
-/* ── Macro grid ── */
-.macro-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 9px 0;
-  border-bottom: 1px solid var(--border);
-  font-size: 12px;
-}
-.macro-item:last-child { border-bottom: none; }
-.macro-name { color: var(--muted); }
-.macro-val { font-family: 'DM Mono', monospace; font-weight: 500; }
+/* ─── AI Report ─── */
+.ai-output{font-size:13px;line-height:1.85;color:#CBD5E1;white-space:pre-wrap;font-family:'Space Grotesk',sans-serif;min-height:80px}
+.ai-output.loading{color:var(--muted);font-family:'Space Mono',monospace;font-size:11px}
 
-/* ── Portfolio ── */
-.port-num {
-  font-family: 'Syne', sans-serif;
-  font-size: 28px;
-  font-weight: 700;
-  color: var(--silver);
-  margin: 8px 0 2px;
-}
-.port-sub { font-size: 11px; color: var(--muted); }
+/* ─── Stress Meter ─── */
+.stress-meter{margin:14px 0}
+.stress-track{height:10px;background:var(--faint);border-radius:5px;overflow:hidden;position:relative}
+.stress-fill{height:100%;border-radius:5px;transition:width 1.5s cubic-bezier(.4,0,.2,1)}
+.stress-labels{display:flex;justify-content:space-between;margin-top:5px;font-family:'Space Mono',monospace;font-size:9px;color:var(--muted)}
+.stress-score-row{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px}
+.stress-score{font-family:'Space Mono',monospace;font-size:28px;font-weight:700}
+.stress-label-right{font-size:11px;color:var(--muted)}
 
-/* ── Footer ── */
-.footer {
-  text-align: center;
-  padding: 20px;
-  color: var(--muted);
-  font-family: 'DM Mono', monospace;
-  font-size: 10px;
-  letter-spacing: 0.08em;
-  border-top: 1px solid var(--border);
-  margin-top: 32px;
+/* ─── Alert Banner ─── */
+.alert{
+  background:var(--red-bg);border:1px solid var(--red-border);
+  border-left:3px solid var(--red);border-radius:var(--r);
+  padding:11px 14px;margin-bottom:16px;
+  display:flex;gap:10px;align-items:flex-start;font-size:12px;color:#FCA5A5;line-height:1.6
 }
+.alert b{color:#FEE2E2}
 
-@media (max-width: 900px) {
-  .ticker-row { grid-template-columns: repeat(3,1fr); }
-  .grid2, .grid3 { grid-template-columns: 1fr; }
-  .main { padding: 16px; }
-  .header { padding: 14px 16px; }
+/* ─── Buttons ─── */
+.btn{
+  font-family:'Space Grotesk',sans-serif;font-size:13px;font-weight:600;
+  padding:9px 16px;border-radius:var(--r);cursor:pointer;
+  transition:all 0.15s;border:none;display:inline-flex;align-items:center;gap:6px;
 }
+.btn-primary{background:linear-gradient(135deg,var(--gold-dim),var(--gold));color:#080A0C;width:100%}
+.btn-primary:hover{opacity:0.88}
+.btn-primary:disabled{opacity:0.4;cursor:not-allowed}
+.btn-ghost{background:transparent;color:var(--muted);border:1px solid var(--border2);width:100%;margin-top:6px}
+.btn-ghost:hover{border-color:var(--silver-dim);color:var(--text)}
+.btn-sm{padding:5px 12px;font-size:11px}
+
+/* ─── Schedule bar ─── */
+.sched{
+  background:var(--surface);border:1px solid var(--border);border-radius:var(--r);
+  padding:11px 16px;margin-bottom:16px;
+  display:flex;align-items:center;gap:12px;flex-wrap:wrap;
+}
+.sched-label{font-family:'Space Mono',monospace;font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:0.1em;flex-shrink:0}
+.sched-pills{display:flex;gap:6px;flex-wrap:wrap}
+.sched-pill{
+  font-family:'Space Mono',monospace;font-size:11px;padding:4px 12px;border-radius:20px;
+  cursor:pointer;border:1px solid var(--border2);color:var(--muted);background:transparent;transition:all 0.15s;
+}
+.sched-pill.active{background:var(--silver-dim);color:var(--silver2);border-color:var(--silver-dim)}
+.sched-pill:hover:not(.active){border-color:var(--silver-dim);color:var(--text)}
+.auto-toggle{display:flex;align-items:center;gap:8px;margin-left:auto}
+.toggle{position:relative;width:38px;height:20px;cursor:pointer;flex-shrink:0}
+.toggle input{opacity:0;width:0;height:0}
+.ttrack{position:absolute;top:0;left:0;right:0;bottom:0;background:var(--faint);border-radius:10px;transition:0.2s;border:1px solid var(--border2)}
+input:checked+.ttrack{background:var(--gold-dim);border-color:var(--gold-dim)}
+.tthumb{position:absolute;top:2px;left:2px;width:14px;height:14px;border-radius:50%;background:white;transition:0.2s}
+input:checked~.tthumb{transform:translateX(18px)}
+.toggle-label{font-size:11px;color:var(--muted);cursor:pointer}
+
+/* ─── Tabs ─── */
+.tabs{display:flex;gap:2px;background:var(--surface2);border-radius:8px;padding:3px;margin-bottom:14px}
+.tab{flex:1;font-size:11px;padding:6px;border-radius:6px;border:none;background:transparent;color:var(--muted);cursor:pointer;font-family:'Space Grotesk',sans-serif;font-weight:500;transition:all 0.15s}
+.tab.active{background:var(--surface3);color:var(--text);border:1px solid var(--border2)}
+.tab-panel{display:none}.tab-panel.active{display:block}
+
+/* ─── Economy calendar ─── */
+.cal-item{display:flex;gap:10px;padding:9px 0;border-bottom:1px solid var(--border);font-size:12px;align-items:flex-start}
+.cal-item:last-child{border-bottom:none}
+.cal-time{font-family:'Space Mono',monospace;font-size:10px;color:var(--muted);width:50px;flex-shrink:0;margin-top:1px}
+.cal-imp{font-family:'Space Mono',monospace;font-size:9px;padding:2px 5px;border-radius:3px;flex-shrink:0;margin-top:1px}
+.cal-event{flex:1;color:var(--text);line-height:1.5}
+.cal-prev{font-family:'Space Mono',monospace;font-size:10px;color:var(--muted);flex-shrink:0}
+
+/* ─── History ─── */
+.hist-item{background:var(--surface2);border:1px solid var(--border);border-radius:var(--r);padding:11px 13px;margin-bottom:6px}
+.hist-ts{font-family:'Space Mono',monospace;font-size:9px;color:var(--muted);margin-bottom:4px;text-transform:uppercase;letter-spacing:0.08em}
+.hist-body{font-size:12px;color:var(--text);line-height:1.6}
+
+/* ─── Portfolio ─── */
+.port-big{font-family:'Space Mono',monospace;font-size:26px;font-weight:700;color:var(--gold2);margin:6px 0 2px}
+.port-sub{font-size:11px;color:var(--muted)}
+.prow{display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid var(--border);font-size:12px}
+.prow:last-child{border-bottom:none}
+.pl{color:var(--muted)}
+.pv{font-family:'Space Mono',monospace;font-weight:600}
+
+/* ─── Footer ─── */
+.footer{text-align:center;padding:20px;color:var(--muted);font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.1em;border-top:1px solid var(--border);margin-top:24px;text-transform:uppercase}
+
+/* ─── Color utils ─── */
+.c-gold{color:var(--gold2)} .c-silver{color:var(--silver2)} .c-green{color:var(--green)} .c-red{color:var(--red)} .c-amber{color:var(--amber)} .c-blue{color:var(--blue)} .c-muted{color:var(--muted)}
+
+/* ─── Responsive ─── */
+@media(max-width:1100px){.grid-6{grid-template-columns:repeat(3,1fr)}.grid-4{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:768px){.grid-2,.grid-3,.grid-4{grid-template-columns:1fr}.header-ticker{display:none}.main{padding:14px 12px}}
 </style>
 </head>
 <body>
 
+<!-- ══════════════════════════════════════
+     HEADER
+══════════════════════════════════════ -->
 <div class="header">
   <div class="logo">
-    <span class="logo-mark">Ag · INTELLIGENCE</span>
-    <span class="logo-sub">DAILY BRIEFING SYSTEM v2.0</span>
+    <div class="logo-icon">Au</div>
+    <div>
+      <div class="logo-text">PANORAMA</div>
+      <div class="logo-sub">Vàng & Bạc Toàn Cảnh</div>
+    </div>
   </div>
+
+  <div class="header-ticker" id="header-ticker">
+    <div class="htick">
+      <span class="htick-name">XAU</span>
+      <span class="htick-val c-gold" id="ht-gold">~$4,065</span>
+      <span class="htick-ch c-red" id="ht-gold-ch">▼ -2.1%</span>
+    </div>
+    <div class="htick">
+      <span class="htick-name">XAG</span>
+      <span class="htick-val c-silver" id="ht-silver">~$57.68</span>
+      <span class="htick-ch c-red" id="ht-silver-ch">▼ -1.4%</span>
+    </div>
+    <div class="htick">
+      <span class="htick-name">GSR</span>
+      <span class="htick-val" id="ht-gsr">~70×</span>
+      <span class="htick-ch c-muted">TB: 65–75×</span>
+    </div>
+    <div class="htick">
+      <span class="htick-name">DXY</span>
+      <span class="htick-val" id="ht-dxy">~100.6</span>
+      <span class="htick-ch c-green">▲ +0.3%</span>
+    </div>
+    <div class="htick">
+      <span class="htick-name">WTI</span>
+      <span class="htick-val c-amber" id="ht-oil">~$71.5</span>
+      <span class="htick-ch c-red">▼ -0.8%</span>
+    </div>
+    <div class="htick">
+      <span class="htick-name">VIX</span>
+      <span class="htick-val c-amber" id="ht-vix">~16.5</span>
+      <span class="htick-ch c-muted">Bình thường</span>
+    </div>
+  </div>
+
   <div class="header-right">
-    <div class="clock" id="clock">--:--:-- ICT</div>
-    <div class="status-dot" id="status-dot"></div>
+    <div class="clock" id="clock">--:-- ICT</div>
+    <div class="pulse"></div>
   </div>
 </div>
 
+<!-- ══════════════════════════════════════
+     MAIN
+══════════════════════════════════════ -->
 <div class="main">
 
   <!-- Alert -->
-  <div class="alert-banner" id="alert-banner">
-    <span style="font-size:16px;flex-shrink:0">⚡</span>
-    <div>
-      <b>COMEX First Notice Day 30/4/2026 — MAY CONTRACT</b><br>
-      134,8M oz hợp đồng May còn mở · 76,9M oz Registered · Coverage Ratio 13,4% — stress territory 6 tháng liên tiếp. Đây là ngày theo dõi quan trọng nhất tháng.
+  <div class="alert" id="main-alert">
+    <span style="font-size:15px;flex-shrink:0">⚡</span>
+    <div id="alert-text">
+      <b>Hôm nay: 16/7/2026 · Thị trường vàng đang điều chỉnh</b> — Vàng ~$4.065 · Bạc ~$57.68 · DXY 100.6 · WTI $71.5 · CPI Jun 3.5% (thấp hơn dự báo 3.8%). DXY tăng nhẹ, căng thẳng Mỹ-Iran có dấu hiệu hạ nhiệt. FOMC họp ngày 30/7. Nhấn <b>"Cập nhật toàn bộ"</b> để AI phân tích chi tiết hôm nay.
     </div>
   </div>
 
-  <!-- Price Ticker -->
-  <div class="ticker-row" id="ticker">
-    <div class="ticker-card">
-      <div class="tc-label">Bạc (XAG/USD)</div>
-      <div class="tc-val" style="color:var(--silver)" id="t-silver">$75.67</div>
-      <div class="tc-change dn" id="t-silver-ch">Đang tải...</div>
-    </div>
-    <div class="ticker-card">
-      <div class="tc-label">Vàng (XAU/USD)</div>
-      <div class="tc-val" style="color:var(--gold)" id="t-gold">$3,250</div>
-      <div class="tc-change" id="t-gold-ch">--</div>
-    </div>
-    <div class="ticker-card">
-      <div class="tc-label">GSR Ratio</div>
-      <div class="tc-val" style="color:var(--silver2)" id="t-gsr">43.0×</div>
-      <div class="tc-change neu">TB LS: 65–75×</div>
-    </div>
-    <div class="ticker-card">
-      <div class="tc-label">DXY Index</div>
-      <div class="tc-val" id="t-dxy">99.5</div>
-      <div class="tc-change" id="t-dxy-ch">--</div>
-    </div>
-    <div class="ticker-card">
-      <div class="tc-label">Coverage Ratio</div>
-      <div class="tc-val dn">13.4%</div>
-      <div class="tc-change dn">Stress &lt;15%</div>
-    </div>
-    <div class="ticker-card">
-      <div class="tc-label">Paper Leverage</div>
-      <div class="tc-val dn">7.1×</div>
-      <div class="tc-change dn">Nguy hiểm &gt;6×</div>
-    </div>
-  </div>
-
-  <!-- Schedule -->
-  <div class="schedule-bar">
-    <div class="sched-label">Lịch chạy tự động</div>
-    <div class="sched-times">
-      <div class="sched-pill active" id="sched-am" onclick="setSched('am')">07:00 SA</div>
-      <div class="sched-pill" id="sched-noon" onclick="setSched('noon')">12:00 TR</div>
-      <div class="sched-pill" id="sched-pm" onclick="setSched('pm')">17:00 CH</div>
-      <div class="sched-pill" id="sched-custom" onclick="setSched('custom')">Tùy chỉnh</div>
-    </div>
-    <div id="custom-time-wrap" style="display:none">
-      <input type="time" id="custom-time" value="08:00" style="background:var(--surface2);border:1px solid var(--border2);color:var(--text);border-radius:4px;padding:4px 8px;font-family:'DM Mono',monospace;font-size:12px;">
+  <!-- Schedule bar -->
+  <div class="sched">
+    <span class="sched-label">Lịch tự động</span>
+    <div class="sched-pills">
+      <button class="sched-pill active" id="sp-am" onclick="setPill('am')">07:00 SA</button>
+      <button class="sched-pill" id="sp-noon" onclick="setPill('noon')">12:00 TR</button>
+      <button class="sched-pill" id="sp-pm" onclick="setPill('pm')">17:00 CH</button>
+      <button class="sched-pill" id="sp-custom" onclick="setPill('custom')">Tùy chỉnh</button>
+      <input type="time" id="custom-time" value="08:00" style="display:none;background:var(--surface2);border:1px solid var(--border2);color:var(--text);border-radius:6px;padding:4px 8px;font-family:'Space Mono',monospace;font-size:11px">
     </div>
     <div class="auto-toggle">
       <label class="toggle">
-        <input type="checkbox" id="auto-toggle" onchange="toggleAuto(this.checked)">
-        <div class="toggle-track"></div>
-        <div class="toggle-thumb"></div>
+        <input type="checkbox" id="auto-chk" onchange="toggleAuto(this.checked)">
+        <div class="ttrack"></div>
+        <div class="tthumb"></div>
       </label>
-      <label for="auto-toggle" style="font-size:12px;color:var(--muted);cursor:pointer">Tự động hàng ngày</label>
+      <span class="toggle-label">Tự động hàng ngày</span>
+    </div>
+    <span style="font-family:var(--font-mono);font-size:10px;color:var(--muted);margin-left:8px" id="realtime-status">Chưa kết nối</span>
     </div>
   </div>
 
-  <!-- Main content -->
-  <div class="grid2">
-    <!-- Daily Report -->
-    <div class="card">
-      <div class="card-header">
-        <span class="card-title">Báo cáo thị trường hôm nay</span>
-        <span class="card-badge" id="report-ts">Chưa chạy</span>
+  <!-- ══ ROW 1: Macro KPIs ══ -->
+  <div class="sec-header mb-12">
+    <div class="sec-icon si-blue">🌍</div>
+    <span class="sec-title">Bức tranh vĩ mô toàn cầu & Việt Nam</span>
+    <span class="sec-badge" style="background:var(--blue-bg);color:var(--blue);border:1px solid var(--blue-border)" id="macro-ts">16/7/2026</span>
+  </div>
+  <div class="grid-6 mb-16">
+    <div class="kpi">
+      <div class="kpi-label">DXY — USD Index</div>
+      <div class="kpi-val c-red" id="m-dxy">~100.6</div>
+      <div class="kpi-sub c-muted">Yếu hơn đỉnh 114 (2022)</div>
+      <div class="kpi-bar" style="background:linear-gradient(90deg,var(--red),transparent)"></div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">Fed Funds Rate</div>
+      <div class="kpi-val" id="m-fed">3.75%</div>
+      <div class="kpi-sub c-green">▼ Đang cắt giảm</div>
+      <div class="kpi-bar" style="background:linear-gradient(90deg,var(--green),transparent)"></div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">US 10Y TIPS Yield</div>
+      <div class="kpi-val c-amber" id="m-tips">4.56%</div>
+      <div class="kpi-sub c-muted">Lãi suất thực thấp</div>
+      <div class="kpi-bar" style="background:linear-gradient(90deg,var(--amber),transparent)"></div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">CPI Mỹ (YoY)</div>
+      <div class="kpi-val c-amber" id="m-cpi">3.5%</div>
+      <div class="kpi-sub c-muted">Mục tiêu Fed: 2%</div>
+      <div class="kpi-bar" style="background:linear-gradient(90deg,var(--amber),transparent)"></div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">Dầu WTI (USD/barrel)</div>
+      <div class="kpi-val c-amber" id="m-oil">$71.5</div>
+      <div class="kpi-sub c-muted">Hormuz risk premium</div>
+      <div class="kpi-bar" style="background:linear-gradient(90deg,var(--amber),transparent)"></div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">USD/VNĐ</div>
+      <div class="kpi-val" id="m-vnd">25,800</div>
+      <div class="kpi-sub c-muted">Vietcombank TT</div>
+      <div class="kpi-bar" style="background:linear-gradient(90deg,var(--silver-dim),transparent)"></div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">VIX — Fear Index</div>
+      <div class="kpi-val c-amber" id="m-vix">16.5</div>
+      <div class="kpi-sub c-muted">&lt;20 bình thường</div>
+      <div class="kpi-bar" style="background:linear-gradient(90deg,var(--amber),transparent)"></div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">GDP Mỹ (Q2 2026)</div>
+      <div class="kpi-val c-red" id="m-gdp">+0.5%</div>
+      <div class="kpi-sub c-muted">Stagflation risk</div>
+      <div class="kpi-bar" style="background:linear-gradient(90deg,var(--red),transparent)"></div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">USD/CNY</div>
+      <div class="kpi-val" id="m-cny">7.24</div>
+      <div class="kpi-sub c-muted">CNY ổn định</div>
+      <div class="kpi-bar" style="background:linear-gradient(90deg,var(--silver-dim),transparent)"></div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">Đồng HG (Copper)</div>
+      <div class="kpi-val c-amber" id="m-copper">$4.12</div>
+      <div class="kpi-sub c-muted">Leading indicator</div>
+      <div class="kpi-bar" style="background:linear-gradient(90deg,var(--amber),transparent)"></div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">Vàng SJC (tr/lượng)</div>
+      <div class="kpi-val c-gold" id="m-sjc">16.6</div>
+      <div class="kpi-sub c-muted">Chênh vs TG: +5%</div>
+      <div class="kpi-bar" style="background:linear-gradient(90deg,var(--gold-dim),transparent)"></div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">Đồng Copper (USD/lb)</div>
+      <div class="kpi-val c-amber" id="m-copper">$4.12</div>
+      <div class="kpi-sub c-muted">Mục tiêu NHNN: &lt;4.5%</div>
+      <div class="kpi-bar" style="background:linear-gradient(90deg,var(--silver-dim),transparent)"></div>
+    </div>
+  </div>
+
+  <!-- ══ ROW 2: Inventory + Signals ══ -->
+  <div class="grid-2 mb-16" style="gap:12px">
+
+    <!-- Inventory -->
+    <div>
+      <div class="sec-header mb-12">
+        <div class="sec-icon si-red">🏦</div>
+        <span class="sec-title">Kho bãi thực tế — COMEX / LBMA</span>
+        <span class="sec-badge ic-high" id="inv-ts">STRESS</span>
       </div>
-      <div class="report-output" id="report-output">Nhấn "Tạo báo cáo ngay" để AI thu thập dữ liệu realtime và phân tích toàn diện về bạc hôm nay — bao gồm tồn kho COMEX, tin tức địa chính trị, macro kinh tế và khuyến nghị cho danh mục 22,35 kg bạc.</div>
-      <button class="run-btn" id="run-main" onclick="runReport()">Tạo báo cáo ngay</button>
-      <button class="run-btn secondary" onclick="runQuickUpdate()">Cập nhật nhanh (3 phút)</button>
+      <div class="card">
+        <!-- COMEX Gold -->
+        <div style="font-family:'Space Mono',monospace;font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:10px">COMEX — New York</div>
+        <div class="inv-section">
+          <div class="inv-item">
+            <div class="inv-meta">
+              <span class="inv-name">Gold Registered</span>
+              <span class="inv-val c-amber" id="inv-gold-reg">8.2M oz</span>
+            </div>
+            <div class="inv-track">
+              <div class="inv-fill" id="inv-gold-reg-bar" style="width:52%;background:linear-gradient(90deg,var(--amber),var(--gold))"></div>
+              <div class="inv-marker" style="left:100%"></div>
+            </div>
+            <div style="font-size:10px;color:var(--muted);margin-top:2px">Đỉnh 2022: ~15.7M oz</div>
+          </div>
+          <div class="inv-item">
+            <div class="inv-meta">
+              <span class="inv-name">Gold Eligible</span>
+              <span class="inv-val c-muted" id="inv-gold-eli">17.1M oz</span>
+            </div>
+            <div class="inv-track">
+              <div class="inv-fill" id="inv-gold-eli-bar" style="width:70%;background:var(--faint)"></div>
+            </div>
+            <div style="font-size:10px;color:var(--muted);margin-top:2px">Không thể giao ngay</div>
+          </div>
+          <div class="inv-item">
+            <div class="inv-meta">
+              <span class="inv-name">Silver Registered</span>
+              <span class="inv-val c-red" id="inv-silver-reg">76.9M oz</span>
+            </div>
+            <div class="inv-track">
+              <div class="inv-fill" id="inv-silver-reg-bar" style="width:19%;background:linear-gradient(90deg,var(--red),#FF6B6B)"></div>
+            </div>
+            <div style="font-size:10px;color:var(--red);margin-top:2px">⚠ Đỉnh 2020: 400M+ oz — Giảm 81%</div>
+          </div>
+          <div class="inv-item">
+            <div class="inv-meta">
+              <span class="inv-name">Silver Eligible</span>
+              <span class="inv-val c-muted" id="inv-silver-eli">~470M oz</span>
+            </div>
+            <div class="inv-track">
+              <div class="inv-fill" style="width:65%;background:var(--faint)"></div>
+            </div>
+          </div>
+        </div>
+
+        <div style="border-top:1px solid var(--border);margin-top:12px;padding-top:12px">
+          <div style="font-family:'Space Mono',monospace;font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:10px">LBMA — London / SGE — Shanghai</div>
+          <div class="inv-item">
+            <div class="inv-meta">
+              <span class="inv-name">LBMA Gold Vault</span>
+              <span class="inv-val c-gold" id="inv-lbma">~8,700t</span>
+            </div>
+            <div class="inv-track">
+              <div class="inv-fill" style="width:75%;background:linear-gradient(90deg,var(--gold-dim),var(--gold))"></div>
+            </div>
+          </div>
+          <div class="inv-item">
+            <div class="inv-meta">
+              <span class="inv-name">LBMA Lease Rate</span>
+              <span class="inv-val c-amber" id="inv-lease">0.45%/yr</span>
+            </div>
+            <div class="inv-track">
+              <div class="inv-fill" style="width:22%;background:var(--amber)"></div>
+            </div>
+            <div style="font-size:10px;color:var(--muted);margin-top:2px">Bình thường &lt;0.5% · Stress khi &gt;2%</div>
+          </div>
+          <div class="inv-item" style="margin-bottom:0">
+            <div class="inv-meta">
+              <span class="inv-name">SGE Premium (Silver)</span>
+              <span class="inv-val c-red" id="inv-sge">+12–13%</span>
+            </div>
+            <div class="inv-track">
+              <div class="inv-fill" style="width:85%;background:linear-gradient(90deg,var(--red),#FF8080)"></div>
+            </div>
+            <div style="font-size:10px;color:var(--red);margin-top:2px">Shanghai trả cao hơn COMEX — Cầu TQ cực mạnh</div>
+          </div>
+        </div>
+
+        <!-- Coverage ratio -->
+        <div style="margin-top:14px;background:var(--red-bg);border:1px solid var(--red-border);border-radius:var(--r);padding:10px 12px">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+            <span style="font-family:'Space Mono',monospace;font-size:10px;color:var(--red)">SILVER COVERAGE RATIO</span>
+            <span style="font-family:'Space Mono',monospace;font-size:16px;font-weight:700;color:var(--red)" id="coverage-ratio">13.4%</span>
+          </div>
+          <div style="height:6px;background:var(--faint);border-radius:3px;overflow:hidden">
+            <div style="width:13.4%;height:100%;background:var(--red);border-radius:3px"></div>
+          </div>
+          <div style="font-size:10px;color:var(--red);margin-top:5px">Paper leverage 7.1× · STRESS ZONE &lt;15% liên tiếp 6 tháng</div>
+        </div>
+      </div>
     </div>
 
-    <!-- Right column -->
+    <!-- Signals + GRAM -->
     <div>
-      <!-- COMEX Inventory -->
-      <div class="card" style="margin-bottom:12px">
-        <div class="card-header">
-          <span class="card-title">COMEX Inventory (dữ liệu thực)</span>
-          <span class="card-badge dn">STRESS</span>
+      <div class="sec-header mb-12">
+        <div class="sec-icon si-silver">📡</div>
+        <span class="sec-title">Tín hiệu thị trường</span>
+        <span class="sec-badge" style="background:var(--surface2);color:var(--muted);border:1px solid var(--border)">Realtime</span>
+      </div>
+      <div class="card mb-12">
+        <div class="tabs">
+          <button class="tab active" onclick="swTab('signals','t-')">Tín hiệu chính</button>
+          <button class="tab" onclick="swTab('gram','t-')">Mô hình GRAM</button>
+          <button class="tab" onclick="swTab('calendar','t-')">Lịch kinh tế</button>
         </div>
-        <div class="inv-bar-wrap">
-          <div class="inv-label-row"><span>Registered (giao được)</span><span>76,9M / 400M+ đỉnh</span></div>
-          <div class="inv-track"><div class="inv-fill inv-registered" style="width:19.2%">76.9M oz</div></div>
-          <div class="inv-label-row" style="margin-top:8px"><span>Eligible (chưa giao)</span><span>~470M oz</span></div>
-          <div class="inv-track"><div class="inv-fill inv-eligible" style="width:65%">470M oz</div></div>
-          <div class="coverage-badge">
-            <span style="width:6px;height:6px;background:var(--red);border-radius:50%;display:inline-block"></span>
-            Coverage Ratio: 13.4% · Paper Leverage: 7.1× · FND: Ngày mai 30/4
+
+        <div id="t-signals" class="tab-panel active">
+          <div class="signal">
+            <div class="sig-dot" style="background:var(--red)"></div>
+            <div class="sig-name">COMEX Silver Coverage</div>
+            <div class="sig-track"><div class="sig-fill" style="width:13%;background:var(--red)"></div></div>
+            <div class="sig-val c-red">13.4%</div>
+            <div class="sig-arrow c-red">↓↓</div>
+          </div>
+          <div class="signal">
+            <div class="sig-dot" style="background:var(--red)"></div>
+            <div class="sig-name">SGE Premium Shanghai</div>
+            <div class="sig-track"><div class="sig-fill" style="width:85%;background:var(--red)"></div></div>
+            <div class="sig-val c-red">+12–13%</div>
+            <div class="sig-arrow c-red">↑↑</div>
+          </div>
+          <div class="signal">
+            <div class="sig-dot" style="background:var(--amber)"></div>
+            <div class="sig-name">COT Managed Money (Silver)</div>
+            <div class="sig-track"><div class="sig-fill" style="width:52%;background:var(--amber)"></div></div>
+            <div class="sig-val c-amber">Net-Long TB</div>
+            <div class="sig-arrow c-amber">→</div>
+          </div>
+          <div class="signal">
+            <div class="sig-dot" style="background:var(--amber)"></div>
+            <div class="sig-name">COT Managed Money (Gold)</div>
+            <div class="sig-track"><div class="sig-fill" style="width:60%;background:var(--amber)"></div></div>
+            <div class="sig-val c-amber">Net-Long TB</div>
+            <div class="sig-arrow c-amber">→</div>
+          </div>
+          <div class="signal">
+            <div class="sig-dot" style="background:var(--amber)"></div>
+            <div class="sig-name">LBMA Gold Lease Rate</div>
+            <div class="sig-track"><div class="sig-fill" style="width:22%;background:var(--amber)"></div></div>
+            <div class="sig-val c-amber">0.45%</div>
+            <div class="sig-arrow c-amber">→</div>
+          </div>
+          <div class="signal">
+            <div class="sig-dot" style="background:var(--green)"></div>
+            <div class="sig-name">Gold/Silver Ratio</div>
+            <div class="sig-track"><div class="sig-fill" style="width:65%;background:var(--green)"></div></div>
+            <div class="sig-val c-green">~70×</div>
+            <div class="sig-arrow c-green">↑</div>
+          </div>
+          <div class="signal">
+            <div class="sig-dot" style="background:var(--red)"></div>
+            <div class="sig-name">Silver Deficit 2026</div>
+            <div class="sig-track"><div class="sig-fill" style="width:90%;background:var(--red)"></div></div>
+            <div class="sig-val c-red">−67M oz</div>
+            <div class="sig-arrow c-red">↑</div>
+          </div>
+          <div class="signal">
+            <div class="sig-dot" style="background:var(--green)"></div>
+            <div class="sig-name">NHTW mua ròng (PBoC)</div>
+            <div class="sig-track"><div class="sig-fill" style="width:75%;background:var(--green)"></div></div>
+            <div class="sig-val c-green">8t/tháng</div>
+            <div class="sig-arrow c-green">↑↑</div>
+          </div>
+        </div>
+
+        <div id="t-gram" class="tab-panel">
+          <div style="font-size:11px;color:var(--muted);line-height:1.6;margin-bottom:10px;padding:8px 10px;background:var(--surface2);border-radius:6px">
+            <b style="color:var(--text)">GRAM Model (WGC)</b> — Đóng góp vào mức tăng 60%+ của vàng năm 2025
+          </div>
+          <div class="gram-row">
+            <div class="gram-name">Địa chính trị & bất định</div>
+            <div class="gram-track"><div class="gram-fill" style="width:53%;background:var(--red)"></div></div>
+            <div class="gram-val c-red">+16 pts</div>
+          </div>
+          <div class="gram-row">
+            <div class="gram-name">USD suy yếu (DXY)</div>
+            <div class="gram-track"><div class="gram-fill" style="width:33%;background:var(--amber)"></div></div>
+            <div class="gram-val c-amber">+10 pts</div>
+          </div>
+          <div class="gram-row">
+            <div class="gram-name">Tăng trưởng chậm (GDP)</div>
+            <div class="gram-track"><div class="gram-fill" style="width:33%;background:var(--amber)"></div></div>
+            <div class="gram-val c-amber">+10 pts</div>
+          </div>
+          <div class="gram-row">
+            <div class="gram-name">Momentum & positioning</div>
+            <div class="gram-track"><div class="gram-fill" style="width:30%;background:var(--blue)"></div></div>
+            <div class="gram-val c-blue">+9 pts</div>
+          </div>
+          <div class="gram-row">
+            <div class="gram-name">Giảm lãi suất thực</div>
+            <div class="gram-track"><div class="gram-fill" style="width:27%;background:var(--blue)"></div></div>
+            <div class="gram-val c-blue">+8 pts</div>
+          </div>
+          <div class="gram-row">
+            <div class="gram-name">NHTW mua ròng</div>
+            <div class="gram-track"><div class="gram-fill" style="width:20%;background:var(--green)"></div></div>
+            <div class="gram-val c-green">Cấu trúc</div>
+          </div>
+          <div class="gram-row">
+            <div class="gram-name">Phần dư / yếu tố khác</div>
+            <div class="gram-track"><div class="gram-fill" style="width:23%;background:var(--silver-dim)"></div></div>
+            <div class="gram-val c-muted">~7 pts</div>
+          </div>
+        </div>
+
+        <div id="t-calendar" class="tab-panel">
+          <div style="font-size:10px;color:var(--muted);font-family:'Space Mono',monospace;margin-bottom:8px;text-transform:uppercase;letter-spacing:0.08em">Lịch kinh tế quan trọng — 7 ngày tới</div>
+          <div class="cal-item">
+            <div class="cal-time">Hôm nay<br>16/7</div>
+            <div class="cal-imp ic-high">CAO</div>
+            <div class="cal-event">CPI Mỹ tháng 6/2026 — BLS công bố 20:30 ICT</div>
+            <div class="cal-prev c-muted">Prev: 3.3%</div>
+          </div>
+          <div class="cal-item">
+            <div class="cal-time">17/7<br>T.Năm</div>
+            <div class="cal-imp ic-med">VỪA</div>
+            <div class="cal-event">Phát biểu Fed Chair Powell — 22:00 ICT</div>
+            <div class="cal-prev c-muted">Theo dõi</div>
+          </div>
+          <div class="cal-item">
+            <div class="cal-time">18/7<br>T.Sáu</div>
+            <div class="cal-imp ic-med">VỪA</div>
+            <div class="cal-event">COT Report CFTC — Gold & Silver positions</div>
+            <div class="cal-prev c-muted">15:30 ET</div>
+          </div>
+          <div class="cal-item">
+            <div class="cal-time">22/7<br>T.Ba</div>
+            <div class="cal-imp ic-low">THẤP</div>
+            <div class="cal-event">Retail Sales Mỹ tháng 6</div>
+            <div class="cal-prev c-muted">Prev: +0.1%</div>
+          </div>
+          <div class="cal-item">
+            <div class="cal-time">30/7<br>T.Tư</div>
+            <div class="cal-imp ic-high">CAO</div>
+            <div class="cal-event">FOMC Meeting — Fed quyết định lãi suất</div>
+            <div class="cal-prev c-muted">3.75%</div>
           </div>
         </div>
       </div>
 
-      <!-- Key Signals -->
+      <!-- Stress Meter -->
       <div class="card">
-        <div class="card-header">
-          <span class="card-title">Tín hiệu chủ chốt</span>
-          <span class="card-badge">Realtime</span>
+        <div style="font-family:'Space Mono',monospace;font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:10px">Physical Market Stress Index</div>
+        <div class="stress-score-row">
+          <div class="stress-score c-amber" id="stress-score">68</div>
+          <div class="stress-label-right">/ 100 · Elevated Stress</div>
         </div>
-        <div class="signal-row">
-          <div class="signal-name">SGE Premium</div>
-          <div class="signal-track"><div class="signal-bar" style="width:85%;background:var(--red)"></div></div>
-          <div class="signal-val dn">+12–13%</div>
-          <div class="signal-arrow dn">↑↑</div>
+        <div class="stress-meter">
+          <div class="stress-track">
+            <div class="stress-fill" id="stress-fill" style="width:68%;background:linear-gradient(90deg,var(--green),var(--amber),var(--red))"></div>
+          </div>
+          <div class="stress-labels">
+            <span>0 — Bình thường</span>
+            <span>40 — Chú ý</span>
+            <span>60 — Căng thẳng</span>
+            <span>80 — Nguy hiểm</span>
+            <span>100</span>
+          </div>
         </div>
-        <div class="signal-row">
-          <div class="signal-name">COMEX Inventory</div>
-          <div class="signal-track"><div class="signal-bar" style="width:19%;background:var(--red)"></div></div>
-          <div class="signal-val dn">76.9M oz</div>
-          <div class="signal-arrow dn">↓↓</div>
-        </div>
-        <div class="signal-row">
-          <div class="signal-name">Lease Rate LBMA</div>
-          <div class="signal-track"><div class="signal-bar" style="width:35%;background:var(--amber)"></div></div>
-          <div class="signal-val" style="color:var(--amber)">0.45%</div>
-          <div class="signal-arrow" style="color:var(--amber)">→</div>
-        </div>
-        <div class="signal-row">
-          <div class="signal-name">COT Net Position</div>
-          <div class="signal-track"><div class="signal-bar" style="width:52%;background:var(--amber)"></div></div>
-          <div class="signal-val" style="color:var(--amber)">Net-Long TB</div>
-          <div class="signal-arrow" style="color:var(--amber)">→</div>
-        </div>
-        <div class="signal-row">
-          <div class="signal-name">G/S Ratio vs Avg</div>
-          <div class="signal-track"><div class="signal-bar" style="width:65%;background:var(--green)"></div></div>
-          <div class="signal-val up">43× (Low)</div>
-          <div class="signal-arrow up">↓</div>
-        </div>
-        <div class="signal-row">
-          <div class="signal-name">Deficit 2026</div>
-          <div class="signal-track"><div class="signal-bar" style="width:90%;background:var(--red)"></div></div>
-          <div class="signal-val dn">−67M oz</div>
-          <div class="signal-arrow dn">↑</div>
-        </div>
+        <div style="font-size:11px;color:var(--muted);line-height:1.65">Tổng hợp từ: Coverage ratio, SGE premium, Lease rate, Thâm hụt cung-cầu, Paper leverage</div>
       </div>
     </div>
   </div>
 
-  <!-- Macro + News + Portfolio -->
-  <div class="grid3">
-    <!-- Macro -->
-    <div class="card">
-      <div class="card-header">
-        <span class="card-title">Macro kinh tế hôm nay</span>
-        <span class="card-badge" id="macro-ts">29/4/2026</span>
+  <!-- ══ ROW 3: AI Report + News + Portfolio ══ -->
+  <div class="grid-3 mb-16" style="gap:12px">
+
+    <!-- AI Report -->
+    <div style="grid-column:span 1">
+      <div class="sec-header mb-12">
+        <div class="sec-icon" style="background:linear-gradient(135deg,var(--gold-dim),var(--gold-dim));border:1px solid var(--gold-dim)">🤖</div>
+        <span class="sec-title">AI Tổng hợp — "Số liệu nói gì?"</span>
+        <span class="sec-badge" style="background:var(--surface2);color:var(--muted);border:1px solid var(--border)" id="ai-ts">Chưa chạy</span>
       </div>
-      <div id="macro-data">
-        <div class="macro-item"><span class="macro-name">DXY Index</span><span class="macro-val dn">99.5</span></div>
-        <div class="macro-item"><span class="macro-name">Fed Funds Rate</span><span class="macro-val">3.75%</span></div>
-        <div class="macro-item"><span class="macro-name">US 10Y TIPS Yield</span><span class="macro-val">1.8%</span></div>
-        <div class="macro-item"><span class="macro-name">CPI US (Mar)</span><span class="macro-val" style="color:var(--amber)">3.3% YoY</span></div>
-        <div class="macro-item"><span class="macro-name">GDP US Q4 (rev)</span><span class="macro-val dn">+0.5%</span></div>
-        <div class="macro-item"><span class="macro-name">WTI Crude</span><span class="macro-val">$87–88</span></div>
-        <div class="macro-item"><span class="macro-name">CNY/USD</span><span class="macro-val">7.24</span></div>
-        <div class="macro-item"><span class="macro-name">VNĐ/USD</span><span class="macro-val">25.800</span></div>
+      <div class="card" style="height:calc(100% - 40px)">
+        <div class="ai-output" id="ai-output">Nhấn "Cập nhật toàn bộ" để AI phân tích toàn bộ dữ liệu hôm nay và giải thích các con số đang nói gì về thị trường vàng/bạc — bằng tiếng Việt, súc tích, trung lập.</div>
+        <button class="btn btn-primary" id="run-btn" onclick="runFullReport()" style="margin-top:14px">
+          <span>⚡</span> Cập nhật toàn bộ
+        </button>
+        <button class="btn btn-ghost" onclick="runQuick()">Cập nhật nhanh</button>
+        <div style="font-size:10px;color:var(--muted);margin-top:8px;text-align:center;font-family:'Space Mono',monospace" id="ai-status"></div>
       </div>
-      <button class="run-btn secondary" style="margin-top:12px" onclick="runMacroUpdate()">Cập nhật macro</button>
     </div>
 
     <!-- News -->
-    <div class="card">
-      <div class="card-header">
-        <span class="card-title">Tin tức tác động (hôm nay)</span>
-        <span class="card-badge" id="news-ts">Chưa tải</span>
+    <div>
+      <div class="sec-header mb-12">
+        <div class="sec-icon si-red">📰</div>
+        <span class="sec-title">Tin hot trong ngày</span>
+        <span class="sec-badge" style="background:var(--surface2);color:var(--muted);border:1px solid var(--border)" id="news-ts">Chưa tải</span>
       </div>
-      <div id="news-feed">
-        <div class="news-item">
-          <div class="news-source">FOMC · 29/4/2026</div>
-          <div class="news-headline">Họp Fed hôm nay — thị trường chờ tín hiệu về lộ trình lãi suất giữa stagflation</div>
-          <div><span class="news-impact impact-high">TÁC ĐỘNG CAO</span></div>
+      <div class="card" style="height:calc(100% - 40px);display:flex;flex-direction:column">
+        <div id="news-feed" style="flex:1;overflow-y:auto">
+          <div class="news-item">
+            <div class="news-meta">
+              <span class="news-source">Reuters</span>
+              <span class="news-time">Hôm nay</span>
+              <span class="impact-chip ic-high">CAO</span>
+            </div>
+            <div class="news-headline">Vàng $4.065, bạc $57.68 sau CPI Jun 3.5% — thấp hơn dự báo, DXY giảm về 100.6</div>
+          </div>
+          <div class="news-item">
+            <div class="news-meta">
+              <span class="news-source">FOMC Watch</span>
+              <span class="news-time">16/7</span>
+              <span class="impact-chip ic-high">CAO</span>
+            </div>
+            <div class="news-headline">Fed họp ngày 30/7 — thị trường định giá 65% khả năng giữ nguyên lãi suất</div>
+          </div>
+          <div class="news-item">
+            <div class="news-meta">
+              <span class="news-source">CME Group</span>
+              <span class="news-time">16/7</span>
+              <span class="impact-chip ic-med">VỪA</span>
+            </div>
+            <div class="news-headline">COMEX Silver Registered giảm nhẹ còn 76.9M oz — Coverage ratio 13.4%</div>
+          </div>
+          <div class="news-item">
+            <div class="news-meta">
+              <span class="news-source">WGC</span>
+              <span class="news-time">15/7</span>
+              <span class="impact-chip ic-med">VỪA</span>
+            </div>
+            <div class="news-headline">PBoC tăng dự trữ vàng lên 8 tấn/tháng — cao nhất 18 tháng qua</div>
+          </div>
+          <div class="news-item">
+            <div class="news-meta">
+              <span class="news-source">Bloomberg</span>
+              <span class="news-time">15/7</span>
+              <span class="impact-chip ic-low">THẤP</span>
+            </div>
+            <div class="news-headline">Fresnillo duy trì cắt giảm sản lượng bạc 9% trong 2026 do chi phí tăng</div>
+          </div>
         </div>
-        <div class="news-item">
-          <div class="news-source">COMEX · 30/4/2026</div>
-          <div class="news-headline">First Notice Day MAY contract — 134.8M oz vs 76.9M oz registered. Theo dõi delivery pace sau ngày mai</div>
-          <div><span class="news-impact impact-high">TÁC ĐỘNG CAO</span></div>
-        </div>
-        <div class="news-item">
-          <div class="news-source">Địa chính trị · 29/4</div>
-          <div class="news-headline">Iran nộp đề xuất mới mở lại Hormuz qua trung gian Pakistan. Bạc phục hồi $76 sau khi có tin</div>
-          <div><span class="news-impact impact-high">TÁC ĐỘNG CAO</span></div>
-        </div>
-        <div class="news-item">
-          <div class="news-source">Silver Institute · Apr 2026</div>
-          <div class="news-headline">World Silver Survey 2026 xác nhận thâm hụt năm 6: 46.3M oz. 762M oz đã rút từ 2021</div>
-          <div><span class="news-impact impact-med">TÁC ĐỘNG VỪA</span></div>
-        </div>
+        <button class="btn btn-ghost" onclick="runNews()" style="margin-top:10px;font-size:11px">🔄 Tải tin mới nhất</button>
       </div>
-      <button class="run-btn secondary" style="margin-top:12px" onclick="runNewsUpdate()">Tải tin mới nhất</button>
     </div>
 
     <!-- Portfolio -->
-    <div class="card">
-      <div class="card-header">
-        <span class="card-title">Danh mục 22,35 kg bạc</span>
-        <span class="card-badge up">HOLD</span>
+    <div>
+      <div class="sec-header mb-12">
+        <div class="sec-icon si-gold">💼</div>
+        <span class="sec-title">Danh mục cá nhân</span>
+        <span class="sec-badge c-amber" style="background:var(--amber-bg);border:1px solid var(--amber-border)">HOLD</span>
       </div>
-      <div class="port-num" id="port-val">~2,02 tỷ</div>
-      <div class="port-sub">718,5 troy oz · $75.67/oz · 25.800 VNĐ</div>
+      <div class="card" style="height:calc(100% - 40px)">
+        <div class="port-big" id="p-total">~2,02 tỷ</div>
+        <div class="port-sub">22,35 kg bạc · 3,4 chỉ vàng · 16/7/2026</div>
 
-      <div style="margin:14px 0;padding:12px;background:var(--surface2);border-radius:6px;border:1px solid var(--border)">
-        <div class="macro-item" style="border-bottom:1px solid var(--border)"><span class="macro-name">Giá trị USD</span><span class="macro-val" id="port-usd">$54,355</span></div>
-        <div class="macro-item" style="border-bottom:1px solid var(--border)"><span class="macro-name">P&L từ đỉnh</span><span class="macro-val dn">−38% ($121.67)</span></div>
-        <div class="macro-item" style="border-bottom:1px solid var(--border)"><span class="macro-name">Nợ ngắn hạn</span><span class="macro-val dn">217 tr VNĐ</span></div>
-        <div class="macro-item"><span class="macro-name">Cần bán (trả nợ)</span><span class="macro-val" style="color:var(--amber)">~4,3 kg</span></div>
-      </div>
+        <div style="background:var(--surface2);border-radius:var(--r);padding:12px;margin:12px 0">
+          <div class="prow">
+            <span class="pl">Bạc 22,35 kg (718,5 oz)</span>
+            <span class="pv c-silver" id="p-silver-val">~1,97 tỷ</span>
+          </div>
+          <div class="prow">
+            <span class="pl">Vàng 3,4 chỉ (PNJ/BTMH)</span>
+            <span class="pv c-gold" id="p-gold-val">~55,4 tr</span>
+          </div>
+          <div class="prow">
+            <span class="pl">P&L Bạc (mua 28/1)</span>
+            <span class="pv c-red">−8,48%</span>
+          </div>
+          <div class="prow">
+            <span class="pl">Nợ ngắn hạn cần trả</span>
+            <span class="pv c-red">217 tr VNĐ</span>
+          </div>
+          <div class="prow" style="border-bottom:none">
+            <span class="pl">Cần bán (tối thiểu)</span>
+            <span class="pv c-amber">~4,3 kg bạc</span>
+          </div>
+        </div>
 
-      <div style="margin-bottom:10px">
-        <label style="font-size:11px;color:var(--muted);font-family:'DM Mono',monospace;display:block;margin-bottom:4px">Giá bạc (USD/oz)</label>
-        <input type="number" id="p-price" value="75.67" step="0.1" oninput="updatePort()" style="width:100%;background:var(--surface2);border:1px solid var(--border2);color:var(--text);border-radius:4px;padding:6px 10px;font-family:'DM Mono',monospace;font-size:12px;">
-      </div>
-      <div>
-        <label style="font-size:11px;color:var(--muted);font-family:'DM Mono',monospace;display:block;margin-bottom:4px">Tỷ giá USD/VNĐ</label>
-        <input type="number" id="p-rate" value="25800" step="50" oninput="updatePort()" style="width:100%;background:var(--surface2);border:1px solid var(--border2);color:var(--text);border-radius:4px;padding:6px 10px;font-family:'DM Mono',monospace;font-size:12px;">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px">
+          <div>
+            <div style="font-size:10px;color:var(--muted);font-family:'Space Mono',monospace;margin-bottom:4px">XAG (USD/oz)</div>
+            <input type="number" id="p-xag" value="57.68" step="0.1" oninput="calcPort()" style="width:100%;background:var(--surface2);border:1px solid var(--border2);color:var(--text);border-radius:6px;padding:6px 9px;font-family:'Space Mono',monospace;font-size:12px">
+          </div>
+          <div>
+            <div style="font-size:10px;color:var(--muted);font-family:'Space Mono',monospace;margin-bottom:4px">USD/VNĐ</div>
+            <input type="number" id="p-rate" value="25800" step="50" oninput="calcPort()" style="width:100%;background:var(--surface2);border:1px solid var(--border2);color:var(--text);border-radius:6px;padding:6px 9px;font-family:'Space Mono',monospace;font-size:12px">
+          </div>
+        </div>
+
+        <!-- Sell simulator -->
+        <div style="background:var(--amber-bg);border:1px solid var(--amber-border);border-radius:var(--r);padding:10px 12px">
+          <div style="font-size:10px;color:var(--amber);font-family:'Space Mono',monospace;margin-bottom:6px;text-transform:uppercase;letter-spacing:0.08em">Mô phỏng bán</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:6px">
+            <div>
+              <div style="font-size:10px;color:var(--muted);margin-bottom:3px">Bán (kg)</div>
+              <input type="number" id="sell-kg" value="4" step="0.5" min="0" max="22.35" oninput="calcSell()" style="width:100%;background:var(--surface);border:1px solid var(--border2);color:var(--text);border-radius:5px;padding:5px 8px;font-family:'Space Mono',monospace;font-size:12px">
+            </div>
+            <div>
+              <div style="font-size:10px;color:var(--muted);margin-bottom:3px">Thu về (VNĐ)</div>
+              <div style="background:var(--surface);border:1px solid var(--border2);border-radius:5px;padding:5px 8px;font-family:'Space Mono',monospace;font-size:12px;color:var(--green)" id="sell-proceeds">~360 tr</div>
+            </div>
+          </div>
+          <div style="font-size:11px;color:var(--amber)" id="sell-status">Đủ trả Cẩm Lĩnh (105 tr)</div>
+        </div>
       </div>
     </div>
   </div>
 
-  <!-- History Log -->
-  <div class="card">
-    <div class="card-header">
-      <span class="card-title">Lịch sử báo cáo (session này)</span>
-      <span class="card-badge" id="history-count">0 báo cáo</span>
-    </div>
-    <div id="history-log" style="color:var(--muted);font-size:12px;font-family:'DM Mono',monospace;">
-      Chưa có báo cáo nào. Hệ thống sẽ lưu lịch sử các lần phân tích trong phiên làm việc này.
-    </div>
+  <!-- ══ ROW 4: History ══ -->
+  <div class="sec-header mb-12">
+    <div class="sec-icon si-blue">📋</div>
+    <span class="sec-title">Lịch sử báo cáo hôm nay</span>
+    <span class="sec-badge" style="background:var(--surface2);color:var(--muted);border:1px solid var(--border)" id="hist-count">0 báo cáo</span>
+  </div>
+  <div class="card" id="history-log">
+    <div style="color:var(--muted);font-family:'Space Mono',monospace;font-size:11px;padding:8px 0">Chưa có báo cáo nào trong phiên này.</div>
   </div>
 
-</div>
+</div><!-- /main -->
 
 <div class="footer">
-  AG · INTELLIGENCE SYSTEM · BUILT ON CLAUDE SONNET 4 · DỮ LIỆU THAM KHẢO — KHÔNG PHẢI TƯ VẤN ĐẦU TƯ
+  PANORAMA · Vàng & Bạc Toàn Cảnh · Dữ liệu tham khảo — Không phải tư vấn đầu tư · Built with Claude AI
 </div>
 
 <script>
-// ── Clock ──
-function updateClock() {
-  const now = new Date();
-  const ict = new Date(now.getTime() + 7*3600000);
-  const h = String(ict.getUTCHours()).padStart(2,'0');
-  const m = String(ict.getUTCMinutes()).padStart(2,'0');
-  const s = String(ict.getUTCSeconds()).padStart(2,'0');
-  document.getElementById('clock').textContent = `${h}:${m}:${s} ICT`;
+
+// ══════════════════════════════════════════════
+//  REALTIME DATA — Gọi Vercel proxy
+// ══════════════════════════════════════════════
+const PROXY = 'https://silver-intelligence-90derr88e-phunghuong18284s-projects.vercel.app'; // ← Vercel sẽ tự điền khi deploy
+
+async function fetchRealtime() {
+  const priceEl = document.getElementById('realtime-status');
+  if (priceEl) priceEl.textContent = '⟳ Đang lấy giá realtime...';
+
+  try {
+    // Lấy giá kim loại + macro song song
+    const [priceRes, macroRes] = await Promise.allSettled([
+      fetch(PROXY + '/api/proxy?type=prices').then(r => r.json()),
+      fetch(PROXY + '/api/proxy?type=macro').then(r => r.json())
+    ]);
+
+    const prices = priceRes.status === 'fulfilled' && priceRes.value?.ok
+      ? priceRes.value.data : null;
+    const macro = macroRes.status === 'fulfilled' && macroRes.value?.ok
+      ? macroRes.value.data : null;
+
+    if (prices) applyPrices(prices);
+    if (macro) applyMacro(macro);
+
+    const ts = new Date().toLocaleTimeString('vi-VN', {hour:'2-digit', minute:'2-digit'});
+    if (priceEl) priceEl.textContent = '✓ Cập nhật ' + ts;
+    document.getElementById('macro-ts')?.setAttribute('data-ts', ts);
+
+    // Cập nhật timestamp trên badge
+    const macroTs = document.getElementById('macro-ts');
+    if (macroTs) macroTs.textContent = 'Live · ' + ts;
+
+  } catch(e) {
+    if (priceEl) priceEl.textContent = '⚠ Lỗi kết nối — dùng số thủ công';
+    console.warn('Realtime fetch failed:', e.message);
+  }
 }
-setInterval(updateClock, 1000);
-updateClock();
 
-// ── Schedule ──
-let schedMode = 'am';
-let autoEnabled = false;
-let schedTimer = null;
-let reportHistory = [];
+function applyPrices(p) {
+  // Header ticker
+  setEl('ht-gold',   fmt(p.xau?.value, '$', '/oz'));
+  setEl('ht-silver', fmt(p.xag?.value, '$', '/oz'));
+  setEl('ht-gsr',    p.gsr?.value ? p.gsr.value + '×' : null);
+  setEl('ht-dxy',    fmt(p.dxy?.value));
+  setEl('ht-oil',    fmt(p.wti?.value, '$'));
+  setEl('ht-vix',    fmt(p.vix?.value));
 
-function setSched(mode) {
-  schedMode = mode;
-  ['am','noon','pm','custom'].forEach(m => {
-    document.getElementById('sched-'+m).classList.toggle('active', m === mode);
+  // Header change colors
+  applyChange('ht-gold-ch', p.xau?.chPct);
+  applyChange('ht-silver-ch', p.xag?.chPct);
+
+  // KPI cards
+  setEl('m-dxy',  fmt(p.dxy?.value));
+  setEl('m-oil',  fmt(p.wti?.value, '$'));
+  setEl('m-vix',  fmt(p.vix?.value));
+  setEl('m-sjc',  p.xau_vnd?.value ? p.xau_vnd.value.toFixed(1) : null);
+  if (p.usdvnd?.value) setEl('m-vnd', p.usdvnd.value.toLocaleString('vi-VN'));
+
+  // Portfolio inputs — cập nhật giá tự động
+  const xagInput = document.getElementById('p-xag');
+  if (xagInput && p.xag?.value) {
+    xagInput.value = p.xag.value.toFixed(2);
+    calcPort();
+  }
+  const rateInput = document.getElementById('p-rate');
+  if (rateInput && p.usdvnd?.value) {
+    rateInput.value = p.usdvnd.value;
+    calcPort();
+  }
+
+  // GSR signal bar
+  if (p.gsr?.value) {
+    const gsr = p.gsr.value;
+    const gsrEl = document.querySelector('.sig-val.c-green');
+    if (gsrEl) gsrEl.textContent = gsr + '×';
+  }
+
+  // Alert banner — cập nhật giá
+  const alertEl = document.getElementById('alert-text');
+  if (alertEl && p.xau?.value && p.xag?.value) {
+    const goldStr = '$' + p.xau.value.toLocaleString('en-US', {maximumFractionDigits:0});
+    const silvStr = '$' + p.xag.value.toFixed(2);
+    const dxyStr  = p.dxy?.value ? ' · DXY ' + p.dxy.value.toFixed(1) : '';
+    const wtiStr  = p.wti?.value ? ' · WTI $' + p.wti.value.toFixed(1) : '';
+    alertEl.innerHTML = '<b>Live ' + new Date().toLocaleDateString('vi-VN') + ' — Vàng ' + goldStr + ' · Bạc ' + silvStr + dxyStr + wtiStr + '</b> · Nhấn "Cập nhật toàn bộ" để AI phân tích chi tiết.';
+  }
+}
+
+function applyMacro(m) {
+  setEl('m-tips', m.t10y?.value ? m.t10y.value.toFixed(2) + '%' : null);
+  setEl('m-copper', m.copper?.value ? '$' + m.copper.value.toFixed(2) : null);
+}
+
+function fmt(val, prefix='', suffix='') {
+  if (val == null) return null;
+  const num = typeof val === 'number' ? val : parseFloat(val);
+  if (isNaN(num)) return null;
+  return prefix + num.toLocaleString('en-US', {maximumFractionDigits: num > 100 ? 0 : 2}) + suffix;
+}
+
+function setEl(id, val) {
+  if (!val) return;
+  const el = document.getElementById(id);
+  if (el) el.textContent = val;
+}
+
+function applyChange(id, chPct) {
+  if (!chPct) return;
+  const el = document.getElementById(id);
+  if (!el) return;
+  const n = parseFloat(chPct);
+  if (isNaN(n)) return;
+  el.textContent = (n >= 0 ? '▲ +' : '▼ ') + n.toFixed(2) + '%';
+  el.className = 'htick-ch ' + (n >= 0 ? 'c-green' : 'c-red');
+}
+
+// Chạy ngay khi load, sau đó mỗi 5 phút
+document.addEventListener('DOMContentLoaded', () => {
+  fetchRealtime();
+  setInterval(fetchRealtime, 5 * 60 * 1000);
+});
+
+// ─── Clock ───
+function tick(){
+  const now=new Date();
+  const ict=new Date(now.getTime()+7*3600000);
+  const pad=n=>String(n).padStart(2,'0');
+  document.getElementById('clock').textContent=`${pad(ict.getUTCHours())}:${pad(ict.getUTCMinutes())}:${pad(ict.getUTCSeconds())} ICT`;
+}
+setInterval(tick,1000);tick();
+
+// ─── Schedule ───
+let schedMode='am',autoTimer=null;
+function setPill(m){
+  schedMode=m;
+  ['am','noon','pm','custom'].forEach(x=>{
+    document.getElementById('sp-'+x).classList.toggle('active',x===m);
   });
-  document.getElementById('custom-time-wrap').style.display = mode === 'custom' ? 'block' : 'none';
+  document.getElementById('custom-time').style.display=m==='custom'?'inline-block':'none';
 }
-
-function getSchedHour() {
-  if (schedMode === 'am') return 7;
-  if (schedMode === 'noon') return 12;
-  if (schedMode === 'pm') return 17;
-  const t = document.getElementById('custom-time').value;
-  return parseInt(t.split(':')[0]);
-}
-function getSchedMin() {
-  if (schedMode === 'custom') {
-    const t = document.getElementById('custom-time').value;
-    return parseInt(t.split(':')[1]);
-  }
-  return 0;
-}
-
-function toggleAuto(on) {
-  autoEnabled = on;
-  if (schedTimer) clearInterval(schedTimer);
-  if (on) {
-    schedTimer = setInterval(() => {
-      const now = new Date();
-      const ict = new Date(now.getTime() + 7*3600000);
-      if (ict.getUTCHours() === getSchedHour() && ict.getUTCMinutes() === getSchedMin() && ict.getUTCSeconds() < 5) {
-        runReport();
-      }
-    }, 5000);
+function toggleAuto(on){
+  if(autoTimer)clearInterval(autoTimer);
+  if(on){
+    autoTimer=setInterval(()=>{
+      const now=new Date();
+      const ict=new Date(now.getTime()+7*3600000);
+      const h=ict.getUTCHours(),mn=ict.getUTCMinutes(),s=ict.getUTCSeconds();
+      const th=schedMode==='am'?7:schedMode==='noon'?12:schedMode==='pm'?17:parseInt((document.getElementById('custom-time').value||'8:00').split(':')[0]);
+      const tm=schedMode==='custom'?parseInt((document.getElementById('custom-time').value||'8:00').split(':')[1]):0;
+      if(h===th&&mn===tm&&s<10)runFullReport();
+    },5000);
   }
 }
 
-// ── Portfolio ──
-function updatePort() {
-  const price = parseFloat(document.getElementById('p-price').value) || 75.67;
-  const rate = parseFloat(document.getElementById('p-rate').value) || 25800;
-  const oz = 22.35 / 0.0311035;
-  const usd = oz * price;
-  const vnd = usd * rate;
-  document.getElementById('port-val').textContent = '~' + (Math.round(vnd/1e8)/10).toFixed(2) + ' tỷ';
-  document.getElementById('port-usd').textContent = '$' + Math.round(usd).toLocaleString();
+// ─── Tab switcher ───
+function swTab(id,prefix){
+  document.querySelectorAll('.tab-panel').forEach(p=>{
+    if(p.id.startsWith(prefix))p.classList.remove('active');
+  });
+  document.querySelectorAll('.tab').forEach(b=>b.classList.remove('active'));
+  document.getElementById(prefix+id).classList.add('active');
+  event.target.classList.add('active');
 }
 
-// ── Add to history ──
-function addHistory(ts, summary) {
-  reportHistory.unshift({ ts, summary });
-  const log = document.getElementById('history-log');
-  const count = document.getElementById('history-count');
-  count.textContent = reportHistory.length + ' báo cáo';
-  log.innerHTML = reportHistory.map(r => `
-    <div class="history-item">
-      <div class="history-ts">${r.ts}</div>
-      <div class="history-summary">${r.summary.substring(0, 200)}...</div>
+// ─── Portfolio calc ───
+function calcPort(){
+  const xag=parseFloat(document.getElementById('p-xag').value)||57.68;
+  const rate=parseFloat(document.getElementById('p-rate').value)||25800;
+  const silverOz=22.35/0.0311035;
+  const silverVal=silverOz*xag*rate;
+  const goldVal=55380000;
+  const total=silverVal+goldVal;
+  document.getElementById('p-total').textContent='~'+(Math.round(total/1e8)/10).toFixed(2)+' tỷ';
+  document.getElementById('p-silver-val').textContent='~'+(Math.round(silverVal/1e6))+' tr';
+  calcSell();
+}
+function calcSell(){
+  const xag=parseFloat(document.getElementById('p-xag').value)||57.68;
+  const rate=parseFloat(document.getElementById('p-rate').value)||25800;
+  const kg=parseFloat(document.getElementById('sell-kg').value)||0;
+  const oz=kg/0.0311035;
+  const vnd=oz*xag*rate;
+  document.getElementById('sell-proceeds').textContent='~'+(Math.round(vnd/1e6))+' tr';
+  let st='';
+  if(vnd>=400e6)st='✅ Đủ tất toán hết nợ 400 tr';
+  else if(vnd>=217e6)st='✅ Đủ trả Cẩm Lĩnh + Sunshine (217 tr)';
+  else if(vnd>=105e6)st='✅ Đủ trả Cẩm Lĩnh (105 tr)';
+  else st='⚠ Chưa đủ — tăng lượng bán';
+  document.getElementById('sell-status').textContent=st;
+}
+calcPort();
+
+// ─── History ───
+let history=[];
+function addHistory(ts,summary){
+  history.unshift({ts,summary});
+  const log=document.getElementById('history-log');
+  document.getElementById('hist-count').textContent=history.length+' báo cáo';
+  log.innerHTML=history.map(h=>`
+    <div class="hist-item">
+      <div class="hist-ts">${h.ts}</div>
+      <div class="hist-body">${h.summary.substring(0,300).replace(/\n/g,' ')}...</div>
     </div>
   `).join('');
 }
 
-// ── Main Report ──
-async function runReport() {
-  const btn = document.getElementById('run-main');
-  const out = document.getElementById('report-output');
-  const ts = document.getElementById('report-ts');
-  btn.disabled = true;
-  out.className = 'report-output loading';
-  out.textContent = '⟳ AI đang thu thập dữ liệu realtime...\n  → Truy vấn COMEX inventory...\n  → Lấy tin tức địa chính trị...\n  → Phân tích macro kinh tế...\n  → Tổng hợp & dự báo...';
-
-  const now = new Date();
-  const ict = new Date(now.getTime() + 7*3600000);
-  const tsStr = `${String(ict.getUTCHours()).padStart(2,'0')}:${String(ict.getUTCMinutes()).padStart(2,'0')} ICT · 29/4/2026`;
-
-  const price = document.getElementById('p-price').value;
-  const rate = document.getElementById('p-rate').value;
-
-  const prompt = `Bạn là chuyên gia phân tích kim loại quý hàng đầu. Tạo báo cáo thị trường bạc đầy đủ cho ${tsStr}.
-
-DỮ LIỆU COMEX THỰC TẾ (29/4/2026):
-• Giá bạc spot: $${price}/oz | Đỉnh lịch sử: $121.67 (29/1/2026) | Giảm 38% từ đỉnh
-• COMEX Registered: 76,9M oz (giảm 81% từ đỉnh 400M+ năm 2020)
-• COMEX Eligible: ~470M oz (không thể giao ngay)
-• Open Interest: 550-575M oz → Paper Leverage: 7,1×
-• Coverage Ratio: 13,4% → STRESS ZONE (<15%) kéo dài 6 tháng
-• FIRST NOTICE DAY MAY CONTRACT: NGÀY MAI 30/4/2026
-• May contracts mở: 134,8M oz (26.963 hợp đồng) — chỉ có 76,9M oz giao được
-• SGE Premium Shanghai: +12-13% trên COMEX → Import TQ cao nhất 8 năm
-• LBMA Lease Rate: ~0.45%/năm (bình thường)
-• COT Managed Money: Net-long trung bình (Commercials: net-short -42.163 HĐ)
-• Thâm hụt 2026: -46 đến -67M oz (năm thứ 6 liên tiếp)
-• 762M oz rút từ tồn kho trên mặt đất từ 2021
-
-MACRO HÔM NAY (29/4/2026):
-• DXY: 99.5 | US 10Y TIPS: 1.8% | CPI Mar: 3.3% | GDP Q4 rev: +0.5%
-• Fed: Họp FOMC hôm nay 29/4 → thị trường chờ tín hiệu
-• Dầu WTI: ~$87-88 (do căng thẳng Hormuz đẩy lên)
-• Stagflation rủi ro: tăng trưởng thấp + lạm phát cao
-
-ĐỊA CHÍNH TRỊ & XÃ HỘI HÔM NAY:
-• Iran nộp đề xuất mở lại eo biển Hormuz qua trung gian Pakistan
-• Trump hủy chuyến đàm phán Islamabad → căng thẳng chưa giải quyết
-• Căng thẳng Mỹ-Trung về thương mại tiếp tục
-• Physical investment demand 2026 dự báo +20% → 227M oz (cao nhất 3 năm)
-• Fresnillo (mỏ bạc lớn nhất) cắt sản lượng 2026 đi 9%
-• WGC: NHTW tiếp tục mua ròng vàng → hỗ trợ cả bạc
-
-DANH MỤC GIA ĐÌNH VIỆT NAM:
-• Nắm giữ: 22,35 kg = 718,5 troy oz ≈ $54.331 ≈ 2,02 tỷ VNĐ (tỷ giá ${rate})
-• Nợ ngắn hạn cần trả: 217 triệu VNĐ (Cẩm Lĩnh 105tr + Sunshine 112tr)
-• Nợ tín dụng: 400 triệu (lãi suất cao)
-• Thu nhập ròng: 15,8 tr/tháng
-
-Viết báo cáo theo cấu trúc (tiếng Việt, chuyên nghiệp, súc tích):
-
-═══ BÁO CÁO THỊ TRƯỜNG BẠC — ${tsStr} ═══
-
-▌ TÓM TẮT NHANH (3 điểm quan trọng nhất hôm nay)
-
-▌ COMEX: ĐỌC TÍN HIỆU FIRST NOTICE DAY
-(Phân tích sâu tình huống ngày mai 30/4 — điều gì có thể xảy ra?)
-
-▌ ĐỊA CHÍNH TRỊ & MACRO: TÁC ĐỘNG LÊN BẠC HÔM NAY
-(Hormuz, FOMC, stagflation — tác động cụ thể?)
-
-▌ DỰ BÁO GIÁ 7–30 NGÀY
-Base Case: ___ / Bull Case: ___ / Bear Case: ___
-
-▌ KHUYẾN NGHỊ CHO 22,35 KG BẠC
-(Bán bao nhiêu? Giữ phần nào? Timing?)
-
-▌ SỰ KIỆN CẦN THEO DÕI TRONG 48H TỚI`;
-
-  try {
-    const res = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
-        max_tokens: 1000,
-        messages: [{ role: 'user', content: prompt }]
-      })
-    });
-    const data = await res.json();
-    const txt = data.content?.[0]?.text || 'Lỗi nhận phản hồi.';
-    out.className = 'report-output';
-    out.textContent = txt;
-    ts.textContent = tsStr;
-    addHistory(tsStr, txt);
-  } catch(e) {
-    out.className = 'report-output';
-    out.textContent = 'Lỗi kết nối API. Thử lại.';
-  }
-  btn.disabled = false;
+// ─── AI timestamp ───
+function nowTS(){
+  const now=new Date();
+  const ict=new Date(now.getTime()+7*3600000);
+  const pad=n=>String(n).padStart(2,'0');
+  return `${pad(ict.getUTCHours())}:${pad(ict.getUTCMinutes())} ICT · 16/7/2026`;
 }
 
-// ── Quick Update ──
-async function runQuickUpdate() {
-  const out = document.getElementById('report-output');
-  out.className = 'report-output loading';
-  out.textContent = '⟳ Cập nhật nhanh...';
-  const now = new Date();
-  const ict = new Date(now.getTime() + 7*3600000);
-  const tsStr = `${String(ict.getUTCHours()).padStart(2,'0')}:${String(ict.getUTCMinutes()).padStart(2,'0')} ICT`;
+// ─── Full Report ───
+async function runFullReport(){
+  const btn=document.getElementById('run-btn');
+  const out=document.getElementById('ai-output');
+  const st=document.getElementById('ai-status');
+  btn.disabled=true;
+  out.className='ai-output loading';
+  out.textContent='⟳ AI đang thu thập dữ liệu realtime...\n  → COMEX inventory...\n  → Tin tức địa chính trị...\n  → Macro kinh tế...\n  → Phân tích tổng hợp...';
 
-  try {
-    const res = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
-        max_tokens: 1000,
-        messages: [{ role: 'user', content: `Cập nhật nhanh thị trường bạc ${tsStr} ngày 29/4/2026. COMEX Coverage 13,4%, FND ngày mai, giá $75.67, SGE premium +12-13%. Trong 150 từ: 1) Điều quan trọng nhất cần biết ngay bây giờ 2) Hành động khuyến nghị cho người đang nắm 22kg bạc 3) Theo dõi gì trong 4h tới. Tiếng Việt, trực tiếp.` }]
+  const xag=document.getElementById('p-xag').value;
+  const rate=document.getElementById('p-rate').value;
+
+  const prompt=`Bạn là chuyên gia phân tích thị trường kim loại quý hàng đầu. Sử dụng web_search để lấy thông tin mới nhất hôm nay 16/7/2026, sau đó viết báo cáo bằng tiếng Việt.
+
+DỮ LIỆU HỆ THỐNG (16/7/2026):
+GIÁ: Vàng ~$4.065/oz (từ đỉnh $5.595 ngày 29/1 = −27%) · Bạc $${xag}/oz · GSR 53.3× · DXY 99.5 · WTI $87.4
+COMEX: Gold Registered 8.2M oz · Silver Registered 76.9M oz (−81% từ đỉnh) · Coverage 13.4% · Paper leverage 7.1×
+SIGNALS: SGE Premium +12–13% · LBMA Lease Rate 0.45% · COT Net-Long TB · Thâm hụt bạc −67M oz (năm 6)
+MACRO: Fed Rate 3.75% · TIPS 1.8% · CPI Jun 3.5% (vs dự báo 3.8%) · 10Y Treasury 4.56% · CPI VN 3.9% · SJC 16.6 tr/lượng
+SỰ KIỆN: CPI Jun đã công bố 3.5% (thấp hơn dự báo) · Fed rate hike Sep odds 43.9% · FOMC họp 30/7 · PBoC mua 8t/tháng
+GRAM 2025: Địa chính trị +16pts · DXY yếu +10pts · GDP chậm +10pts · Momentum +9pts · Lãi suất +8pts
+
+DANH MỤC: 22,35 kg bạc (~$54.000, ~2 tỷ VNĐ @${rate}) · 3,4 chỉ vàng · Nợ 217 tr ngắn hạn
+
+Viết báo cáo theo cấu trúc này:
+
+═══ PANORAMA — 16/7/2026 ═══
+
+▌ 3 ĐIỀU QUAN TRỌNG NHẤT HÔM NAY
+(Tóm tắt ngắn gọn — đọc 30 giây là nắm được thị trường)
+
+▌ BỨC TRANH VĨ MÔ — SỐ LIỆU NÓI GÌ?
+(Giải thích DXY, lãi suất, CPI, GDP đang dẫn đến đâu cho vàng/bạc)
+
+▌ KHO BÃI COMEX — Ý NGHĨA THỰC TẾ
+(Coverage 13.4% có nghĩa gì? SGE premium +12% nói lên điều gì?)
+
+▌ RỦI RO & CƠ HỘI 30 NGÀY TỚI
+(Base case / Bull case / Bear case — ngắn gọn)
+
+▌ THEO DÕI GÌ TRONG 48H TỚI?
+(CPI hôm nay + 1–2 chỉ số cụ thể)
+
+Viết trung lập, khách quan. Không khuyến nghị mua/bán trực tiếp. Súc tích.`;
+
+  try{
+    const res=await fetch('https://silver-intelligence-90derr88e-phunghuong18284s-projects.vercel.app/api/proxy',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        model:'claude-sonnet-4-20250514',
+        max_tokens:1000,
+        tools:[{type:'web_search_20250305',name:'web_search'}],
+        messages:[{role:'user',content:prompt}]
       })
     });
-    const data = await res.json();
-    out.className = 'report-output';
-    out.textContent = '⚡ CẬP NHẬT NHANH — ' + tsStr + '\n\n' + (data.content?.[0]?.text || 'Lỗi');
-    document.getElementById('report-ts').textContent = tsStr;
-  } catch(e) {
-    out.className = 'report-output';
-    out.textContent = 'Lỗi.';
+    const data=await res.json();
+    const txt=data.content?.filter(b=>b.type==='text').map(b=>b.text).join('\n')||'Lỗi nhận phản hồi.';
+    out.className='ai-output';
+    out.textContent=txt;
+    const ts=nowTS();
+    document.getElementById('ai-ts').textContent=ts;
+    addHistory(ts,txt);
+    st.textContent='Hoàn tất · '+ts;
+  }catch(e){
+    out.className='ai-output';
+    out.textContent='Lỗi kết nối. Hãy đảm bảo đang mở qua https:// (GitHub Pages hoặc Vercel).';
+    st.textContent='';
+  }
+  btn.disabled=false;
+}
+
+// ─── Quick update ───
+async function runQuick(){
+  const out=document.getElementById('ai-output');
+  out.className='ai-output loading';
+  out.textContent='⟳ Cập nhật nhanh...';
+  const xag=document.getElementById('p-xag').value;
+  try{
+    const res=await fetch('https://silver-intelligence-90derr88e-phunghuong18284s-projects.vercel.app/api/proxy',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        model:'claude-sonnet-4-20250514',
+        max_tokens:1000,
+        messages:[{role:'user',content:`Cập nhật nhanh thị trường vàng bạc ${nowTS()}. Vàng $4.031, bạc $${xag}, DXY 99.5, COMEX silver 76.9M oz. CPI Mỹ công bố tối nay. Trong 150 từ tiếng Việt: 1) Điều quan trọng nhất ngay bây giờ 2) Số liệu nào đang thay đổi đáng chú ý 3) Theo dõi gì trong 4h tới. Trung lập, không khuyến nghị.`}]
+      })
+    });
+    const data=await res.json();
+    const txt=data.content?.[0]?.text||'Lỗi';
+    out.className='ai-output';
+    out.textContent='⚡ CẬP NHẬT NHANH — '+nowTS()+'\n\n'+txt;
+    document.getElementById('ai-ts').textContent=nowTS();
+  }catch(e){
+    out.className='ai-output';
+    out.textContent='Lỗi kết nối.';
   }
 }
 
-// ── Macro Update ──
-async function runMacroUpdate() {
-  const macro = document.getElementById('macro-data');
-  macro.innerHTML = '<div style="color:var(--muted);font-size:12px;font-family:DM Mono,monospace;padding:8px 0">⟳ Đang lấy dữ liệu macro...</div>';
-  try {
-    const res = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
-        max_tokens: 1000,
-        messages: [{ role: 'user', content: `Cho tôi các chỉ số macro kinh tế cập nhật nhất tính đến 29/4/2026 có ảnh hưởng đến giá bạc. Chỉ trả về JSON hợp lệ, không có markdown hay backtick, format: {"items":[{"name":"tên chỉ số","value":"giá trị","impact":"up/down/neutral"},...]} Bao gồm: DXY, Fed Funds Rate, US 10Y TIPS, CPI Mỹ, GDP US, Giá dầu WTI, CNY/USD, Chỉ số sản xuất ISM, Lãi suất thực. Ưu tiên dữ liệu mới nhất trong tháng 4/2026.` }]
+// ─── News update ───
+async function runNews(){
+  const feed=document.getElementById('news-feed');
+  feed.innerHTML='<div style="color:var(--muted);font-family:Space Mono,monospace;font-size:11px;padding:12px 0">⟳ Đang tải tin tức mới nhất...</div>';
+  try{
+    const res=await fetch('https://silver-intelligence-90derr88e-phunghuong18284s-projects.vercel.app/api/proxy',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        model:'claude-sonnet-4-20250514',
+        max_tokens:1000,
+        tools:[{type:'web_search_20250305',name:'web_search'}],
+        messages:[{role:'user',content:`Tìm 6 tin tức quan trọng nhất hôm nay 16/7/2026 ảnh hưởng đến giá vàng và bạc. Ưu tiên: Fed/FOMC, địa chính trị, COMEX, NHTW, kinh tế Mỹ/TQ. Trả về JSON hợp lệ không có markdown: {"news":[{"source":"tên nguồn","time":"giờ hoặc ngày","headline":"tiêu đề tiếng Việt","snippet":"1 câu giải thích","impact":"high/med/low"}]}`}]
       })
     });
-    const data = await res.json();
-    const txt = (data.content?.[0]?.text || '{}').trim();
+    const data=await res.json();
+    const rawTxt=data.content?.filter(b=>b.type==='text').map(b=>b.text).join('')||'{}';
     let parsed;
-    try { parsed = JSON.parse(txt); } catch(e) { parsed = { items: [] }; }
-    const colors = { up: 'var(--green)', down: 'var(--red)', neutral: 'var(--muted)' };
-    macro.innerHTML = (parsed.items || []).map(it =>
-      `<div class="macro-item"><span class="macro-name">${it.name}</span><span class="macro-val" style="color:${colors[it.impact]||'var(--text)'}">${it.value}</span></div>`
-    ).join('') || '<div style="color:var(--muted);font-size:12px">Không lấy được dữ liệu.</div>';
-    document.getElementById('macro-ts').textContent = 'Updated ' + new Date().toLocaleTimeString('vi-VN', {hour:'2-digit',minute:'2-digit'});
-  } catch(e) {
-    macro.innerHTML = '<div style="color:var(--red);font-size:12px">Lỗi tải dữ liệu.</div>';
+    try{parsed=JSON.parse(rawTxt.replace(/```json|```/g,'').trim());}
+    catch{parsed={news:[]};}
+    const imp={high:'ic-high',med:'ic-med',low:'ic-low'};
+    const ilab={high:'CAO',med:'VỪA',low:'THẤP'};
+    feed.innerHTML=(parsed.news||[]).map(n=>`
+      <div class="news-item">
+        <div class="news-meta">
+          <span class="news-source">${n.source||''}</span>
+          <span class="news-time">${n.time||''}</span>
+          <span class="impact-chip ${imp[n.impact]||'ic-low'}">${ilab[n.impact]||'THẤP'}</span>
+        </div>
+        <div class="news-headline">${n.headline||''}</div>
+        ${n.snippet?`<div class="news-snippet">${n.snippet}</div>`:''}
+      </div>
+    `).join('')||'<div style="color:var(--muted);font-size:12px;padding:8px 0">Không tải được tin tức.</div>';
+    document.getElementById('news-ts').textContent=nowTS();
+  }catch(e){
+    feed.innerHTML='<div style="color:var(--red);font-size:12px;padding:8px 0">Lỗi tải tin tức.</div>';
   }
 }
-
-// ── News Update ──
-async function runNewsUpdate() {
-  const feed = document.getElementById('news-feed');
-  feed.innerHTML = '<div style="color:var(--muted);font-size:12px;font-family:DM Mono,monospace;padding:8px 0">⟳ Đang tải tin tức realtime...</div>';
-  try {
-    const res = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
-        max_tokens: 1000,
-        messages: [{ role: 'user', content: `Liệt kê 5-6 tin tức/sự kiện quan trọng nhất trong ngày hôm nay (29/4/2026) có ảnh hưởng đến giá bạc và vàng. Ưu tiên: địa chính trị, quyết định Fed, dữ liệu kinh tế Mỹ/TQ, COMEX, nguồn cung. Chỉ trả về JSON hợp lệ, không markdown, format: {"news":[{"source":"nguồn · ngày","headline":"tiêu đề tiếng Việt","impact":"high/med/low"},...]}` }]
-      })
-    });
-    const data = await res.json();
-    const txt = (data.content?.[0]?.text || '{}').trim();
-    let parsed;
-    try { parsed = JSON.parse(txt); } catch(e) { parsed = { news: [] }; }
-    const impactClass = { high: 'impact-high', med: 'impact-med', low: 'impact-low' };
-    const impactLabel = { high: 'TÁC ĐỘNG CAO', med: 'TÁC ĐỘNG VỪA', low: 'TÁC ĐỘNG THẤP' };
-    feed.innerHTML = (parsed.news || []).map(n =>
-      `<div class="news-item">
-        <div class="news-source">${n.source}</div>
-        <div class="news-headline">${n.headline}</div>
-        <div><span class="news-impact ${impactClass[n.impact]||'impact-low'}">${impactLabel[n.impact]||'THẤP'}</span></div>
-      </div>`
-    ).join('') || '<div style="color:var(--muted);font-size:12px">Không lấy được tin.</div>';
-    document.getElementById('news-ts').textContent = new Date().toLocaleTimeString('vi-VN', {hour:'2-digit',minute:'2-digit'});
-  } catch(e) {
-    feed.innerHTML = '<div style="color:var(--red);font-size:12px">Lỗi tải tin tức.</div>';
-  }
-}
-
-updatePort();
 </script>
 </body>
 </html>
