@@ -769,71 +769,7 @@ input:checked~.tthumb{transform:translateX(18px)}
         </div>
         <button class="btn btn-ghost" onclick="runNews()" style="margin-top:10px;font-size:11px">🔄 Tải tin mới nhất</button>
       </div>
-    </div>
-
-    <!-- Portfolio -->
-    <div>
-      <div class="sec-header mb-12">
-        <div class="sec-icon si-gold">💼</div>
-        <span class="sec-title">Danh mục cá nhân</span>
-        <span class="sec-badge c-amber" style="background:var(--amber-bg);border:1px solid var(--amber-border)">HOLD</span>
-      </div>
-      <div class="card" style="height:calc(100% - 40px)">
-        <div class="port-big" id="p-total">~2,02 tỷ</div>
-        <div class="port-sub">22,35 kg bạc · 3,4 chỉ vàng · 16/7/2026</div>
-
-        <div style="background:var(--surface2);border-radius:var(--r);padding:12px;margin:12px 0">
-          <div class="prow">
-            <span class="pl">Bạc 22,35 kg (718,5 oz)</span>
-            <span class="pv c-silver" id="p-silver-val">~1,97 tỷ</span>
-          </div>
-          <div class="prow">
-            <span class="pl">Vàng 3,4 chỉ (PNJ/BTMH)</span>
-            <span class="pv c-gold" id="p-gold-val">~55,4 tr</span>
-          </div>
-          <div class="prow">
-            <span class="pl">P&L Bạc (mua 28/1)</span>
-            <span class="pv c-red">−8,48%</span>
-          </div>
-          <div class="prow">
-            <span class="pl">Nợ ngắn hạn cần trả</span>
-            <span class="pv c-red">217 tr VNĐ</span>
-          </div>
-          <div class="prow" style="border-bottom:none">
-            <span class="pl">Cần bán (tối thiểu)</span>
-            <span class="pv c-amber">~4,3 kg bạc</span>
-          </div>
-        </div>
-
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px">
-          <div>
-            <div style="font-size:10px;color:var(--muted);font-family:'Space Mono',monospace;margin-bottom:4px">XAG (USD/oz)</div>
-            <input type="number" id="p-xag" value="57.68" step="0.1" oninput="calcPort()" style="width:100%;background:var(--surface2);border:1px solid var(--border2);color:var(--text);border-radius:6px;padding:6px 9px;font-family:'Space Mono',monospace;font-size:12px">
-          </div>
-          <div>
-            <div style="font-size:10px;color:var(--muted);font-family:'Space Mono',monospace;margin-bottom:4px">USD/VNĐ</div>
-            <input type="number" id="p-rate" value="25800" step="50" oninput="calcPort()" style="width:100%;background:var(--surface2);border:1px solid var(--border2);color:var(--text);border-radius:6px;padding:6px 9px;font-family:'Space Mono',monospace;font-size:12px">
-          </div>
-        </div>
-
-        <!-- Sell simulator -->
-        <div style="background:var(--amber-bg);border:1px solid var(--amber-border);border-radius:var(--r);padding:10px 12px">
-          <div style="font-size:10px;color:var(--amber);font-family:'Space Mono',monospace;margin-bottom:6px;text-transform:uppercase;letter-spacing:0.08em">Mô phỏng bán</div>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:6px">
-            <div>
-              <div style="font-size:10px;color:var(--muted);margin-bottom:3px">Bán (kg)</div>
-              <input type="number" id="sell-kg" value="4" step="0.5" min="0" max="22.35" oninput="calcSell()" style="width:100%;background:var(--surface);border:1px solid var(--border2);color:var(--text);border-radius:5px;padding:5px 8px;font-family:'Space Mono',monospace;font-size:12px">
-            </div>
-            <div>
-              <div style="font-size:10px;color:var(--muted);margin-bottom:3px">Thu về (VNĐ)</div>
-              <div style="background:var(--surface);border:1px solid var(--border2);border-radius:5px;padding:5px 8px;font-family:'Space Mono',monospace;font-size:12px;color:var(--green)" id="sell-proceeds">~360 tr</div>
-            </div>
-          </div>
-          <div style="font-size:11px;color:var(--amber)" id="sell-status">Đủ trả Cẩm Lĩnh (105 tr)</div>
-        </div>
-      </div>
-    </div>
-  </div>
+    </div>  
 
   <!-- ══ ROW 4: History ══ -->
   <div class="sec-header mb-12">
