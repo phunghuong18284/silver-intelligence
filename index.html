@@ -698,7 +698,7 @@ input:checked~.tthumb{transform:translateX(18px)}
   </div>
 
   <!-- ══ ROW 3: AI Report + News + Portfolio ══ -->
-  <div class="grid-2 mb-16" style="gap:12px">
+  <div class="grid-3 mb-16" style="gap:12px">
 
     <!-- AI Report -->
     <div style="grid-column:span 1">
@@ -771,6 +771,68 @@ input:checked~.tthumb{transform:translateX(18px)}
       </div>
     </div>
 
+    <!-- Portfolio -->
+    <div>
+      <div class="sec-header mb-12">
+        <div class="sec-icon si-gold">💼</div>
+        <span class="sec-title">Danh mục cá nhân</span>
+        <span class="sec-badge c-amber" style="background:var(--amber-bg);border:1px solid var(--amber-border)">HOLD</span>
+      </div>
+      <div class="card" style="height:calc(100% - 40px)">
+        <div class="port-big" id="p-total">~2,02 tỷ</div>
+        <div class="port-sub">22,35 kg bạc · 3,4 chỉ vàng · 16/7/2026</div>
+
+        <div style="background:var(--surface2);border-radius:var(--r);padding:12px;margin:12px 0">
+          <div class="prow">
+            <span class="pl">Bạc 22,35 kg (718,5 oz)</span>
+            <span class="pv c-silver" id="p-silver-val">~1,97 tỷ</span>
+          </div>
+          <div class="prow">
+            <span class="pl">Vàng 3,4 chỉ (PNJ/BTMH)</span>
+            <span class="pv c-gold" id="p-gold-val">~55,4 tr</span>
+          </div>
+          <div class="prow">
+            <span class="pl">P&L Bạc (mua 28/1)</span>
+            <span class="pv c-red">−8,48%</span>
+          </div>
+          <div class="prow">
+            <span class="pl">Nợ ngắn hạn cần trả</span>
+            <span class="pv c-red">217 tr VNĐ</span>
+          </div>
+          <div class="prow" style="border-bottom:none">
+            <span class="pl">Cần bán (tối thiểu)</span>
+            <span class="pv c-amber">~4,3 kg bạc</span>
+          </div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px">
+          <div>
+            <div style="font-size:10px;color:var(--muted);font-family:'Space Mono',monospace;margin-bottom:4px">XAG (USD/oz)</div>
+            <input type="number" id="p-xag" value="57.68" step="0.1" oninput="calcPort()" style="width:100%;background:var(--surface2);border:1px solid var(--border2);color:var(--text);border-radius:6px;padding:6px 9px;font-family:'Space Mono',monospace;font-size:12px">
+          </div>
+          <div>
+            <div style="font-size:10px;color:var(--muted);font-family:'Space Mono',monospace;margin-bottom:4px">USD/VNĐ</div>
+            <input type="number" id="p-rate" value="25800" step="50" oninput="calcPort()" style="width:100%;background:var(--surface2);border:1px solid var(--border2);color:var(--text);border-radius:6px;padding:6px 9px;font-family:'Space Mono',monospace;font-size:12px">
+          </div>
+        </div>
+
+        <!-- Sell simulator -->
+        <div style="background:var(--amber-bg);border:1px solid var(--amber-border);border-radius:var(--r);padding:10px 12px">
+          <div style="font-size:10px;color:var(--amber);font-family:'Space Mono',monospace;margin-bottom:6px;text-transform:uppercase;letter-spacing:0.08em">Mô phỏng bán</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:6px">
+            <div>
+              <div style="font-size:10px;color:var(--muted);margin-bottom:3px">Bán (kg)</div>
+              <input type="number" id="sell-kg" value="4" step="0.5" min="0" max="22.35" oninput="calcSell()" style="width:100%;background:var(--surface);border:1px solid var(--border2);color:var(--text);border-radius:5px;padding:5px 8px;font-family:'Space Mono',monospace;font-size:12px">
+            </div>
+            <div>
+              <div style="font-size:10px;color:var(--muted);margin-bottom:3px">Thu về (VNĐ)</div>
+              <div style="background:var(--surface);border:1px solid var(--border2);border-radius:5px;padding:5px 8px;font-family:'Space Mono',monospace;font-size:12px;color:var(--green)" id="sell-proceeds">~360 tr</div>
+            </div>
+          </div>
+          <div style="font-size:11px;color:var(--amber)" id="sell-status">Đủ trả Cẩm Lĩnh (105 tr)</div>
+        </div>
+      </div>
+    </div>
   </div>
 
   <!-- ══ ROW 4: History ══ -->
@@ -849,7 +911,17 @@ function applyPrices(p) {
   setEl('m-sjc',  p.xau_vnd?.value ? p.xau_vnd.value.toFixed(1) : null);
   if (p.usdvnd?.value) setEl('m-vnd', p.usdvnd.value.toLocaleString('vi-VN'));
 
-  // Portfolio removed
+  // Portfolio inputs — cập nhật giá tự động
+  const xagInput = document.getElementById('p-xag');
+  if (xagInput && p.xag?.value) {
+    xagInput.value = p.xag.value.toFixed(2);
+    if(document.getElementById('p-xag')) calcPort();
+  }
+  const rateInput = document.getElementById('p-rate');
+  if (rateInput && p.usdvnd?.value) {
+    rateInput.value = p.usdvnd.value;
+    if(document.getElementById('p-xag')) calcPort();
+  }
 
   // GSR signal bar
   if (p.gsr?.value) {
@@ -947,20 +1019,29 @@ function swTab(id,prefix){
 
 // ─── Portfolio calc ───
 function calcPort(){
-  const xag=parseFloat(document.getElementById('p-xag').value)||57.68;
-  const rate=parseFloat(document.getElementById('p-rate').value)||25800;
+  const xagEl=document.getElementById('p-xag');
+  const rateEl=document.getElementById('p-rate');
+  if(!xagEl||!rateEl) return;
+  const xag=parseFloat(xagEl.value)||57.68;
+  const rate=parseFloat(rateEl.value)||25800;
   const silverOz=22.35/0.0311035;
   const silverVal=silverOz*xag*rate;
   const goldVal=55380000;
   const total=silverVal+goldVal;
-  document.getElementById('p-total').textContent='~'+(Math.round(total/1e8)/10).toFixed(2)+' tỷ';
-  document.getElementById('p-silver-val').textContent='~'+(Math.round(silverVal/1e6))+' tr';
+  const totalEl=document.getElementById('p-total');
+  const silverValEl=document.getElementById('p-silver-val');
+  if(totalEl) totalEl.textContent='~'+(Math.round(total/1e8)/10).toFixed(2)+' tỷ';
+  if(silverValEl) silverValEl.textContent='~'+(Math.round(silverVal/1e6))+' tr';
   calcSell();
 }
 function calcSell(){
-  const xag=parseFloat(document.getElementById('p-xag').value)||57.68;
-  const rate=parseFloat(document.getElementById('p-rate').value)||25800;
-  const kg=parseFloat(document.getElementById('sell-kg').value)||0;
+  const xagEl=document.getElementById('p-xag');
+  const rateEl=document.getElementById('p-rate');
+  const kgEl=document.getElementById('sell-kg');
+  if(!xagEl||!rateEl||!kgEl) return;
+  const xag=parseFloat(xagEl.value)||57.68;
+  const rate=parseFloat(rateEl.value)||25800;
+  const kg=parseFloat(kgEl.value)||0;
   const oz=kg/0.0311035;
   const vnd=oz*xag*rate;
   document.getElementById('sell-proceeds').textContent='~'+(Math.round(vnd/1e6))+' tr';
@@ -971,7 +1052,7 @@ function calcSell(){
   else st='⚠ Chưa đủ — tăng lượng bán';
   document.getElementById('sell-status').textContent=st;
 }
-calcPort();
+if(document.getElementById('p-xag')) calcPort();
 
 // ─── History ───
 let history=[];
@@ -1004,8 +1085,8 @@ async function runFullReport(){
   out.className='ai-output loading';
   out.textContent='⟳ AI đang thu thập dữ liệu realtime...\n  → COMEX inventory...\n  → Tin tức địa chính trị...\n  → Macro kinh tế...\n  → Phân tích tổng hợp...';
 
-  const xag=document.getElementById('p-xag').value;
-  const rate=document.getElementById('p-rate').value;
+  const xagEl=document.getElementById('p-xag'); const xag=xagEl?xagEl.value:'57.68';
+  const rateEl=document.getElementById('p-rate'); const rate=rateEl?rateEl.value:'25800';
 
   const prompt=`Bạn là chuyên gia phân tích thị trường kim loại quý hàng đầu. Sử dụng web_search để lấy thông tin mới nhất hôm nay 16/7/2026, sau đó viết báo cáo bằng tiếng Việt.
 
@@ -1072,7 +1153,7 @@ async function runQuick(){
   const out=document.getElementById('ai-output');
   out.className='ai-output loading';
   out.textContent='⟳ Cập nhật nhanh...';
-  const xag=document.getElementById('p-xag').value;
+  const xagEl=document.getElementById('p-xag'); const xag=xagEl?xagEl.value:'57.68';
   try{
     const res=await fetch('https://silver-intelligence-90derr88e-phunghuong18284s-projects.vercel.app/api/proxy',{
       method:'POST',
